@@ -1,2 +1,2 @@
 # OOP_kursach
-sys
+# Redakt from Alex
