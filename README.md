@@ -1,2 +1,2 @@
 # OOP_kursach
-#redakt from Alex
+# Redakt from Alex
