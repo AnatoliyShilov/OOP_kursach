@@ -2,7 +2,8 @@
 
 Actor::Actor()
 {
-
+    Actor::carry = 0;
+    Actor::health = 0;
 }
 
 void Actor::useMedKit()
@@ -23,8 +24,10 @@ DamageTypes Actor::makeDamage()
     }
     for (int i = 0; i < 4; i++)
     {
-        if (equip.accessory[i].getEffectType() == EffectType::attack){
+        if (equip.accessory[i].effectType == EffectType::attack)
+        {
             result.add(equip.accessory[i].getDamageTypes());
+            equip.accessory[i].lowDurability();
         }
     }
     return result;
@@ -32,12 +35,15 @@ DamageTypes Actor::makeDamage()
 
 void Actor::takeDamage(DamageTypes damage)
 {
-    damage.substract(equip.armor.getDamageTypes());
-    equip.armor.lowDurability();
     for (int i = 0; i < 4; i++)
     {
-        damage.substract(equip.accessory[i].getDamageTypes());
-        equip.accessory[i].lowDurability();
+        damage.substract(equip.armor[i].getDamageTypes());
+        equip.armor[i].lowDurability();
+        if (equip.accessory[i].effectType == EffectType::defence)
+        {
+            damage.substract(equip.accessory[i].getDamageTypes());
+            equip.accessory[i].lowDurability();
+        }
     }
     health -= damage.getHealthDamage();
 }

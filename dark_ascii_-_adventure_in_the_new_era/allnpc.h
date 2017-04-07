@@ -1,11 +1,11 @@
 #ifndef ALLNPC_H
 #define ALLNPC_H
-#include <list>
+#include <dynamic.h>
 #include <npc.h>
 using namespace std;
 class AllNPC
 {
-    list <NPC> npcs;
+    List <NPC> npcs;
 public:
     AllNPC();
 };

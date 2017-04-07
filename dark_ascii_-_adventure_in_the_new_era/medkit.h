@@ -9,6 +9,7 @@ class MedKit
     int effectivity;
 public:
     MedKit();
+    void resetMedKitCount();
     int useMedKit();
 };
 

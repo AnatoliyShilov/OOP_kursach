@@ -52,8 +52,6 @@ SOURCES       = ..\main.cpp \
 		..\accessory.cpp \
 		..\allitems.cpp \
 		..\bag.cpp \
-		..\equipment.cpp \
-		..\chars.cpp \
 		..\medkit.cpp \
 		..\actor.cpp \
 		..\coordinates.cpp \
@@ -63,7 +61,8 @@ SOURCES       = ..\main.cpp \
 		..\cell.cpp \
 		..\room.cpp \
 		..\level.cpp \
-		..\controller.cpp 
+		..\controller.cpp \
+		..\dynamic.cpp 
 OBJECTS       = debug/main.o \
 		debug/item.o \
 		debug/damagetypes.o \
@@ -73,8 +72,6 @@ OBJECTS       = debug/main.o \
 		debug/accessory.o \
 		debug/allitems.o \
 		debug/bag.o \
-		debug/equipment.o \
-		debug/chars.o \
 		debug/medkit.o \
 		debug/actor.o \
 		debug/coordinates.o \
@@ -84,7 +81,8 @@ OBJECTS       = debug/main.o \
 		debug/cell.o \
 		debug/room.o \
 		debug/level.o \
-		debug/controller.o
+		debug/controller.o \
+		debug/dynamic.o
 
 DIST          =  item.h \
 		damagetypes.h \
@@ -94,8 +92,6 @@ DIST          =  item.h \
 		accessory.h \
 		allitems.h \
 		bag.h \
-		equipment.h \
-		chars.h \
 		medkit.h \
 		actor.h \
 		coordinates.h \
@@ -105,7 +101,8 @@ DIST          =  item.h \
 		cell.h \
 		room.h \
 		level.h \
-		controller.h ..\main.cpp \
+		controller.h \
+		dynamic.h ..\main.cpp \
 		..\item.cpp \
 		..\damagetypes.cpp \
 		..\throwing.cpp \
@@ -114,8 +111,6 @@ DIST          =  item.h \
 		..\accessory.cpp \
 		..\allitems.cpp \
 		..\bag.cpp \
-		..\equipment.cpp \
-		..\chars.cpp \
 		..\medkit.cpp \
 		..\actor.cpp \
 		..\coordinates.cpp \
@@ -125,7 +120,8 @@ DIST          =  item.h \
 		..\cell.cpp \
 		..\room.cpp \
 		..\level.cpp \
-		..\controller.cpp
+		..\controller.cpp \
+		..\dynamic.cpp
 QMAKE_TARGET  = dark_ascii_-_adventure_in_the_new_era
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = dark_ascii_-_adventure_in_the_new_era.exe
@@ -145,10 +141,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) dark_ascii_-_adventure_in_the_new_era.zip $(SOURCES) $(DIST) ..\dark_ascii_-_adventure_in_the_new_era.pro E:\Programs\Qt\Qt5.7_Static\mkspecs\features\spec_pre.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\qdevice.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\features\device_config.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\common\angle.conf E:\Programs\Qt\Qt5.7_Static\mkspecs\qconfig.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axbase.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axbase_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axcontainer.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axcontainer_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axserver.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axserver_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_bootstrap_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_concurrent.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_concurrent_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_core.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_core_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_dbus.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_dbus_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_gui.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_gui_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_network.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_network_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_opengl.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_opengl_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_openglextensions.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_openglextensions_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_platformsupport_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_printsupport.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_printsupport_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_serialbus.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_serialbus_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_serialport.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_serialport_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_sql.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_sql_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_svg.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_svg_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_testlib.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_testlib_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_widgets.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_widgets_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_xml.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_xml_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_xmlpatterns.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_xmlpatterns_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_zlib_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qdds.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qgenericbearer.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qicns.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qico.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qminimal.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qnativewifibearer.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qoffscreen.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qsvg.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qsvgicon.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qtga.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qtiff.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qtpeakcanbus.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qttinycanbus.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qtuiotouchplugin.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qwbmp.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qwebp.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qwindows.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_windowsprintersupport.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\features\qt_functions.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\qt_config.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\win32\qt_config.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\win32-g++\qmake.conf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\spec_post.prf .qmake.stash E:\Programs\Qt\Qt5.7_Static\mkspecs\features\exclusive_builds.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\default_pre.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\win32\default_pre.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\resolve_config.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\exclusive_builds_post.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\default_post.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\build_pass.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\win32\console.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\win32\rtti.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\precompile_header.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\warn_on.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\file_copies.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\testcase_targets.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\exceptions.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\yacc.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\lex.prf ..\dark_ascii_-_adventure_in_the_new_era.pro  NO_PCH_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
+	$(ZIP) dark_ascii_-_adventure_in_the_new_era.zip $(SOURCES) $(DIST) ..\..\dark_ascii_-_adventure_in_the_new_era.pro E:\Programs\Qt\Qt5.7_Static\mkspecs\features\spec_pre.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\qdevice.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\features\device_config.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\common\angle.conf E:\Programs\Qt\Qt5.7_Static\mkspecs\qconfig.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axbase.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axbase_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axcontainer.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axcontainer_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axserver.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_axserver_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_bootstrap_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_concurrent.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_concurrent_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_core.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_core_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_dbus.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_dbus_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_gui.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_gui_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_network.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_network_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_opengl.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_opengl_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_openglextensions.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_openglextensions_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_platformsupport_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_printsupport.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_printsupport_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_serialbus.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_serialbus_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_serialport.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_serialport_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_sql.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_sql_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_svg.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_svg_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_testlib.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_testlib_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_widgets.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_widgets_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_xml.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_xml_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_xmlpatterns.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_xmlpatterns_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_lib_zlib_private.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qdds.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qgenericbearer.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qicns.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qico.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qminimal.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qnativewifibearer.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qoffscreen.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qsvg.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qsvgicon.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qtga.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qtiff.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qtpeakcanbus.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qttinycanbus.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qtuiotouchplugin.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qwbmp.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qwebp.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_qwindows.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\modules\qt_plugin_windowsprintersupport.pri E:\Programs\Qt\Qt5.7_Static\mkspecs\features\qt_functions.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\qt_config.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\win32\qt_config.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\win32-g++\qmake.conf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\spec_post.prf .qmake.stash E:\Programs\Qt\Qt5.7_Static\mkspecs\features\exclusive_builds.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\default_pre.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\win32\default_pre.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\resolve_config.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\exclusive_builds_post.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\default_post.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\build_pass.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\win32\console.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\win32\rtti.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\precompile_header.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\warn_on.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\file_copies.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\testcase_targets.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\exceptions.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\yacc.prf E:\Programs\Qt\Qt5.7_Static\mkspecs\features\lex.prf ..\dark_ascii_-_adventure_in_the_new_era.pro  NO_PCH_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.o debug\item.o debug\damagetypes.o debug\throwing.o debug\armor.o debug\weapon.o debug\accessory.o debug\allitems.o debug\bag.o debug\equipment.o debug\chars.o debug\medkit.o debug\actor.o debug\coordinates.o debug\npc.o debug\allnpc.o debug\player.o debug\cell.o debug\room.o debug\level.o debug\controller.o
+	-$(DEL_FILE) debug\main.o debug\item.o debug\damagetypes.o debug\throwing.o debug\armor.o debug\weapon.o debug\accessory.o debug\allitems.o debug\bag.o debug\medkit.o debug\actor.o debug\coordinates.o debug\npc.o debug\allnpc.o debug\player.o debug\cell.o debug\room.o debug\level.o debug\controller.o debug\dynamic.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -209,7 +205,8 @@ debug/allitems.o: ../allitems.cpp ../allitems.h \
 		../damagetypes.h \
 		../accessory.h \
 		../weapon.h \
-		../throwing.h
+		../throwing.h \
+		../dynamic.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\allitems.o ..\allitems.cpp
 
 debug/bag.o: ../bag.cpp ../bag.h \
@@ -219,19 +216,9 @@ debug/bag.o: ../bag.cpp ../bag.h \
 		../damagetypes.h \
 		../accessory.h \
 		../weapon.h \
-		../throwing.h
+		../throwing.h \
+		../dynamic.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\bag.o ..\bag.cpp
-
-debug/equipment.o: ../equipment.cpp ../equipment.h \
-		../armor.h \
-		../item.h \
-		../damagetypes.h \
-		../weapon.h \
-		../accessory.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\equipment.o ..\equipment.cpp
-
-debug/chars.o: ../chars.cpp ../chars.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\chars.o ..\chars.cpp
 
 debug/medkit.o: ../medkit.cpp ../medkit.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\medkit.o ..\medkit.cpp
@@ -243,7 +230,6 @@ debug/actor.o: ../actor.cpp ../actor.h \
 		../damagetypes.h \
 		../weapon.h \
 		../accessory.h \
-		../chars.h \
 		../medkit.h \
 		../coordinates.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\actor.o ..\actor.cpp
@@ -259,12 +245,12 @@ debug/npc.o: ../npc.cpp ../npc.h \
 		../damagetypes.h \
 		../weapon.h \
 		../accessory.h \
-		../chars.h \
 		../medkit.h \
 		../coordinates.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\npc.o ..\npc.cpp
 
 debug/allnpc.o: ../allnpc.cpp ../allnpc.h \
+		../dynamic.h \
 		../npc.h \
 		../actor.h \
 		../equipment.h \
@@ -273,7 +259,6 @@ debug/allnpc.o: ../allnpc.cpp ../allnpc.h \
 		../damagetypes.h \
 		../weapon.h \
 		../accessory.h \
-		../chars.h \
 		../medkit.h \
 		../coordinates.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\allnpc.o ..\allnpc.cpp
@@ -286,12 +271,12 @@ debug/player.o: ../player.cpp ../player.h \
 		../damagetypes.h \
 		../weapon.h \
 		../accessory.h \
-		../chars.h \
 		../medkit.h \
 		../coordinates.h \
 		../bag.h \
 		../allitems.h \
-		../throwing.h
+		../throwing.h \
+		../dynamic.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\player.o ..\player.cpp
 
 debug/cell.o: ../cell.cpp ../cell.h \
@@ -311,6 +296,7 @@ debug/level.o: ../level.cpp ../level.h \
 
 debug/controller.o: ../controller.cpp ../controller.h \
 		../allnpc.h \
+		../dynamic.h \
 		../npc.h \
 		../actor.h \
 		../equipment.h \
@@ -319,7 +305,6 @@ debug/controller.o: ../controller.cpp ../controller.h \
 		../damagetypes.h \
 		../weapon.h \
 		../accessory.h \
-		../chars.h \
 		../medkit.h \
 		../coordinates.h \
 		../allitems.h \
@@ -330,6 +315,9 @@ debug/controller.o: ../controller.cpp ../controller.h \
 		../player.h \
 		../bag.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\controller.o ..\controller.cpp
+
+debug/dynamic.o: ../dynamic.cpp ../dynamic.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\dynamic.o ..\dynamic.cpp
 
 ####### Install
 

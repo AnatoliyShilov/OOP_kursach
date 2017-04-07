@@ -9,6 +9,7 @@ class Item
     DamageTypes damageT;
 public:
     Item();
+    int getId();
     void lowDurability();
     DamageTypes getDamageTypes();
 };

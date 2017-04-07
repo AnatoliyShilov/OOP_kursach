@@ -128,6 +128,7 @@ Makefile: ../dark_ascii_-_adventure_in_the_new_era.pro E:/Programs/Qt/Qt5.7_Stat
 		E:/Programs/Qt/Qt5.7_Static/mkspecs/features/win32/qt_config.prf \
 		E:/Programs/Qt/Qt5.7_Static/mkspecs/win32-g++/qmake.conf \
 		E:/Programs/Qt/Qt5.7_Static/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		E:/Programs/Qt/Qt5.7_Static/mkspecs/features/exclusive_builds.prf \
 		E:/Programs/Qt/Qt5.7_Static/mkspecs/features/default_pre.prf \
 		E:/Programs/Qt/Qt5.7_Static/mkspecs/features/win32/default_pre.prf \
@@ -214,6 +215,7 @@ E:/Programs/Qt/Qt5.7_Static/mkspecs/features/qt_config.prf:
 E:/Programs/Qt/Qt5.7_Static/mkspecs/features/win32/qt_config.prf:
 E:/Programs/Qt/Qt5.7_Static/mkspecs/win32-g++/qmake.conf:
 E:/Programs/Qt/Qt5.7_Static/mkspecs/features/spec_post.prf:
+.qmake.stash:
 E:/Programs/Qt/Qt5.7_Static/mkspecs/features/exclusive_builds.prf:
 E:/Programs/Qt/Qt5.7_Static/mkspecs/features/default_pre.prf:
 E:/Programs/Qt/Qt5.7_Static/mkspecs/features/win32/default_pre.prf:

@@ -12,8 +12,6 @@ SOURCES += main.cpp \
     accessory.cpp \
     allitems.cpp \
     bag.cpp \
-    equipment.cpp \
-    chars.cpp \
     medkit.cpp \
     actor.cpp \
     coordinates.cpp \
@@ -34,8 +32,6 @@ HEADERS += \
     accessory.h \
     allitems.h \
     bag.h \
-    equipment.h \
-    chars.h \
     medkit.h \
     actor.h \
     coordinates.h \
@@ -45,4 +41,5 @@ HEADERS += \
     cell.h \
     room.h \
     level.h \
-    controller.h
+    controller.h \
+    dynamic.h

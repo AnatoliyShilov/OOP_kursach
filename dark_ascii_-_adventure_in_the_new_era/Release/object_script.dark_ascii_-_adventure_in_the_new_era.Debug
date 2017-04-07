@@ -8,8 +8,6 @@ INPUT(
 ./debug\accessory.o
 ./debug\allitems.o
 ./debug\bag.o
-./debug\equipment.o
-./debug\chars.o
 ./debug\medkit.o
 ./debug\actor.o
 ./debug\coordinates.o
@@ -20,4 +18,5 @@ INPUT(
 ./debug\room.o
 ./debug\level.o
 ./debug\controller.o
+./debug\dynamic.o
 );

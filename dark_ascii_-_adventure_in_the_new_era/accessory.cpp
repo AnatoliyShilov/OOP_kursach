@@ -2,9 +2,5 @@
 
 Accessory::Accessory()
 {
-
-}
-
-EffectType Accessory::getEffectType(){
-    return effectType;
+    Accessory::effectType = EffectType::defence;
 }

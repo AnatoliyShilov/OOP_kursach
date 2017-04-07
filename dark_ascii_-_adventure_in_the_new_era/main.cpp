@@ -1,5 +1,7 @@
 #include <iostream>
 #include <windows.h>
+#include "dynamic.h"
+#include "accessory.h"
 using namespace std;
 
 int main(int argc, char *argv[])

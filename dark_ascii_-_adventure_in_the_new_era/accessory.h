@@ -8,11 +8,10 @@ enum EffectType{
 };
 
 class Accessory: public Item
-{
-    EffectType effectType;
+{   
 public:
+    EffectType effectType;
     Accessory();
-    EffectType getEffectType();
 };
 
 #endif // ACCESSORY_H

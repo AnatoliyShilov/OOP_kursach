@@ -4,15 +4,16 @@
 #include <accessory.h>
 #include <weapon.h>
 #include <throwing.h>
-#include <list>
+#include "dynamic.h"
 using namespace std;
 class AllItems
 {
-    list <Armor> armors;
-    list <Weapon> weapons;
-    list <Accessory> accessories;
-    list <Throwing> throwings;
+
 public:
+    List <Armor> armors;
+    List <Weapon> weapons;
+    List <Accessory> accessories;
+    List <Throwing> throwings;
     AllItems();
 };
 

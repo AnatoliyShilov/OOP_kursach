@@ -4,13 +4,11 @@
 #include <weapon.h>
 #include <accessory.h>
 
-class Equipment
+struct Equipment
 {   
-public:
-    Armor armor;
+    Armor armor[4];
     Weapon weapon[2];
     Accessory accessory[4];
-    Equipment();
 };
 
 #endif // EQUIPMENT_H

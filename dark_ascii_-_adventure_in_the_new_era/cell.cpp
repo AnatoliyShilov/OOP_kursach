@@ -2,5 +2,5 @@
 
 Cell::Cell()
 {
-
+    Cell::type = typeCell::FLOOR;
 }

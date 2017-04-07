@@ -9,11 +9,13 @@ class Player: public Actor
     int souls;
 public:
     Player();
-    void changeCoords();
-    void changeArmor();
+    Bag openBag();
+    void changeCoords(int dx, int dy);
+    void changeArmor(Armor armorNew, int index);
+    Armor selectArmor(int id);
     void changeChars();
-    void changeWeapon();
-    void changeAccessory();
+    void changeWeapon(Weapon weaponNew, int index);
+    void changeAccessory(Accessory acessoryNew, int index);
 };
 
 #endif // PLAYER_H
