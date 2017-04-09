@@ -3,10 +3,10 @@
 Armor::Armor()
 {
     Armor::weight = 0;
-    Armor::set = ArmorSet::helmet;
+    Armor::type = ArmorType::helmet;
 }
 
-ArmorSet Armor::getArmorType()
+ArmorType Armor::getType()
 {
-    return set;
+    return type;
 }

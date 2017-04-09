@@ -2,7 +2,7 @@
 
 Player::Player()
 {
-    souls = 0;
+
 }
 
 Armor Player::selectArmor(int id)
@@ -17,7 +17,7 @@ Armor Player::selectArmor(int id)
 
 void Player::changeArmor(Armor armorNew, int index)
 {
-    if (armorNew.getArmorType() != equip.armor[index].getArmorType())
+    if (armorNew.getType() != equip.armor[index].getType())
         return;
     bag.armors.add(equip.armor[index]);
     equip.armor[index] = armorNew;

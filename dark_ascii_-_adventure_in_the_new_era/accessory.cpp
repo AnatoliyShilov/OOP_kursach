@@ -2,5 +2,15 @@
 
 Accessory::Accessory()
 {
-    Accessory::effectType = EffectType::defence;
+    Accessory::accessoryType = AccessoryType::defence;
+}
+
+AccessoryType Accessory::getType()
+{
+    return accessoryType;
+}
+
+Chars Accessory::getCharsBonus()
+{
+    return additionChars;
 }

@@ -1,7 +1,7 @@
 #ifndef ARMOR_H
 #define ARMOR_H
 #include <item.h>
-enum ArmorSet
+enum ArmorType
 {
     helmet,
     armor,
@@ -11,10 +11,10 @@ enum ArmorSet
 
 class Armor: public Item
 {
-    ArmorSet set;
+    ArmorType type;
     int weight;
 public:
-    ArmorSet getArmorType();
+    ArmorType getType();
     Armor();
 };
 

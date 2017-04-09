@@ -42,4 +42,5 @@ HEADERS += \
     room.h \
     level.h \
     controller.h \
-    dynamic.h
+    dynamic.h \
+    additionfunction.h
