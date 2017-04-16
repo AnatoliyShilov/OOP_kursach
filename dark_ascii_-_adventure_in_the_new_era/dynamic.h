@@ -1,6 +1,5 @@
 #ifndef DYNAMIC_H
 #define DYNAMIC_H
-
 #ifndef NULL
 #define NULL 0
 #endif
@@ -21,6 +20,7 @@ class List
 public:
     List();
     ~List();
+    int size();
     void add(Data data);
     Data get(int number);
     void remuveAll();
@@ -28,6 +28,15 @@ public:
     Link<Data>* getBegin();
     Link<Data>* getEnd();
 };
+
+template<class Data>
+int List<Data>::size()
+{
+	int size = 0;
+	for (Link<Data> *temp = begin; temp; temp = temp->Next)
+		size++;
+	return size;
+}
 
 template<class Data>
 List<Data>::List()
@@ -91,16 +100,16 @@ void List<Data>::add(Data data){
     {
         end->Next = new Link<Data>;
         end->Next->data = data;
-        end->Next = NULL;
-        end->Prev = end;
+        end->Next->Prev = end;
+        end->Next->Next = NULL;
         end = end->Next;
     }
     else
     {
         begin = new Link<Data>;
         begin->data = data;
-        end = begin;
         begin->Next = begin->Prev = NULL;
+        end = begin;
     }
 }
 
