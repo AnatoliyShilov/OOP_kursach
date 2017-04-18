@@ -9,10 +9,15 @@ enum AccessoryType{
 
 struct Chars
 {
-    int strenght;
-    int stamina;
-    int health;
-    int dexterity;
+    //улучшаемые
+    int strenght;//сила
+    int health;//здаровье
+    int dexterity;//ловкость
+    //не улучшаемые
+    int luck;//параметр удачи//вероятность получения предмета с врага// интервал [0; luck]
+    int stamina;//выносливость
+    int carry;//грузоподъемность//переносимый вес
+    int regenS;//восстановление выносливости
 };
 
 class Accessory: public Item

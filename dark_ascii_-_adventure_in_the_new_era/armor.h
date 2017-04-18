@@ -15,6 +15,7 @@ class Armor: public Item
     int weight;
 public:
     ArmorType getType();
+    int getWeight();
     Armor();
 };
 

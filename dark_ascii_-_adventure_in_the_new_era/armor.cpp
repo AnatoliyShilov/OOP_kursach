@@ -2,8 +2,15 @@
 
 Armor::Armor()
 {
-    Armor::weight = 0;
-    Armor::type = ArmorType::helmet;
+    weight = 0;
+    type = ArmorType::helmet;
+}
+
+
+
+int Armor::getWeight()
+{
+    return weight;
 }
 
 ArmorType Armor::getType()

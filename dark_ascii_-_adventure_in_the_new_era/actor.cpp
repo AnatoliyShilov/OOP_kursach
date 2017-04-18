@@ -2,24 +2,60 @@
 
 Actor::Actor()
 {
-    Actor::carry =
-    Actor::health =
-    Actor::memoryFragments =
-    Actor::stamina =
-    Actor::regenS = 0;
-    Actor::dead =
-    Actor::parry =
-    Actor::deviation =
-    Actor::equip.twoHanded[0] =
-    Actor::equip.twoHanded[1] =
-    Actor::protection = false;
+    memoryFragments = 0;
+    dead = false;
+    equip.twoHanded[0] = false;
+    equip.twoHanded[1] = false;
+    charsMax.carry = 0;
+    charsMax.dexterity = 0;
+    charsMax.health = 0;
+    charsMax.regenS = 0;
+    charsMax.stamina = 0;
+    charsMax.strenght = 0;
+    charsCurrent = charsMax;
+    battleMod = BattleMod::None;
+    charsBattle.health = charsCurrent.health;
+    charsBattle.stamina = charsCurrent.stamina;
+}
+
+bool Actor::isCritical(int enemyDex)
+{
+    if ((charsCurrent.luck + (charsCurrent.dexterity - enemyDex) / 10) > Dice::roll())
+        return true;
+    return false;
+}
+
+void Actor::updateCharsCurrent()
+{
+    charsCurrent = charsMax;
+    for (int i = 0; i < 4; i++)
+    {
+        if (!equip.accessory[i].isBroken())
+        {
+            charsCurrent.carry += equip.accessory[i].getCharsBonus().carry;
+            charsCurrent.dexterity += equip.accessory[i].getCharsBonus().dexterity;
+            charsCurrent.health += equip.accessory[i].getCharsBonus().health;
+            charsCurrent.luck += equip.accessory[i].getCharsBonus().luck;
+            charsCurrent.regenS += equip.accessory[i].getCharsBonus().regenS;
+            charsCurrent.stamina += equip.accessory[i].getCharsBonus().stamina;
+            charsCurrent.strenght += equip.accessory[i].getCharsBonus().strenght;
+        }
+    }
+    for (int i = 0; i < 2; i++)
+        charsCurrent.carry -= equip.weapon[i].getWeight();
+    for (int i = 0; i < 4; i++)
+        charsCurrent.carry -= equip.armor[i].getWeight();
+    if (charsBattle.health > charsCurrent.health)
+        charsBattle.health = charsCurrent.health;
+    if (charsBattle.stamina > charsBattle.stamina)
+        charsBattle.stamina = charsCurrent.stamina;
 }
 
 void Actor::regenStamina()
 {
-    stamina += regenS;
-    if (stamina > charsMax.stamina)
-        stamina = charsMax.stamina;
+    charsBattle.stamina += charsCurrent.regenS + charsCurrent.carry;
+    if (charsBattle.stamina > charsMax.stamina)
+        charsBattle.stamina = charsMax.stamina;
 }
 
  int Actor::is2handed()
@@ -41,33 +77,52 @@ void Actor::set2handedW1()
 
 void Actor::unset2handed()
 {
-    equip.twoHanded[0] =
+    equip.twoHanded[0] = false;
     equip.twoHanded[1] = false;
 }
 
 int Actor::getDex()
 {
-    int dexterity = charsMax.dexterity;
-    for (int i = 0; i < 4; i++)
-        if (equip.accessory[i].getType() == AccessoryType::charsAdd)
-            dexterity += equip.accessory[i].getCharsBonus().dexterity;
-    return dexterity;
+    return charsCurrent.dexterity;
 }
 
 void Actor::useMedKit()
 {
-    health += medkit.useMedKit();
-    if (health > charsMax.health)
-        health = charsMax.health;
+    charsBattle.health += medkit.useMedKit();
+    if (charsBattle.health > charsMax.health)
+        charsBattle.health = charsMax.health;
+}
+
+bool Actor::isDeviation(int enemyDex)
+{
+    if (battleMod == BattleMod::Deviation)
+    {
+        if ((charsCurrent.luck + (charsCurrent.dexterity - enemyDex) / 2) > Dice::roll())
+        {
+            for (int i = 0; i < 2; i++)
+                charsBattle.stamina -= equip.weapon[i].getWeight();
+            for (int i = 0; i < 4; i++)
+                charsBattle.stamina -= equip.armor[i].getWeight();
+            if (charsBattle.stamina < 0)
+                charsBattle.stamina = 0;
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Actor::isParry(int enemyDex)
 {
-    if (parry)
+    if (battleMod == BattleMod::Parry)
     {
-        int currentDex = getDex() - enemyDex;
-        if (currentDex / 2 > Dice::roll())
+        if ((charsCurrent.luck + (charsCurrent.dexterity - enemyDex) / 4) > Dice::roll())
+        {
+            for (int i = 0; i < 2; i++)
+                charsBattle.stamina -= equip.weapon[i].getWeight();
+            if (charsBattle.stamina < 0)
+                charsBattle.stamina = 0;
             return true;
+        }
     }
     return false;
 }
@@ -83,33 +138,32 @@ DamageTypes Actor::makeDamage(int weapon)
     if (is2handed() == -1)
         weapon = 0;
     DamageTypes result;
-    int currentStrenght = charsMax.strenght;
+    int currentStrenght = charsCurrent.strenght;
     for (int i = 0; i < 4; i++)
     {
-        if (equip.accessory[i].getType() == AccessoryType::attack)
+        if (equip.accessory[i].getType() == AccessoryType::attack && !equip.accessory[i].isBroken())
         {
             result.add(equip.accessory[i].getDamageTypes());
             equip.accessory[i].lowDurability();
-        }
-        if (equip.accessory[i].getType() == AccessoryType::charsAdd)
-        {
-            currentStrenght += equip.accessory[i].getCharsBonus().strenght;
         }
     }
     if (equip.twoHanded[weapon])
     {
         currentStrenght *= 2;
-        stamina -= 2*equip.weapon[weapon].getWeight();
+        charsBattle.stamina -= 2*equip.weapon[weapon].getWeight();
     }
     else
     {
-        stamina -= equip.weapon[weapon].getWeight();
+        charsBattle.stamina -= equip.weapon[weapon].getWeight();
     }
-    if (stamina < 0)
-        stamina = 0;
+    if (charsBattle.stamina < 0)
+        charsBattle.stamina = 0;
     result.addToGeneral(equip.weapon[weapon].getWeight() * currentStrenght);
-    result.add(equip.weapon[weapon].getDamageTypes());
-    equip.weapon[weapon].lowDurability();
+    if (!equip.weapon[weapon].isBroken())
+    {
+        result.add(equip.weapon[weapon].getDamageTypes());
+        equip.weapon[weapon].lowDurability();
+    }
     return result;
 }
 
@@ -118,23 +172,24 @@ bool Actor::isDead()
     return dead;
 }
 
-void Actor::takeParryDamage(DamageTypes damege)
+void Actor::takeCriticalDamage(DamageTypes damage)
 {
-    health += 5 * calculateDamage(damege);
-    if (health <= 0)
+    charsBattle.health += 5 * calculateDamage(damage);
+    if (charsBattle.health <= 0)
         dead = true;
 }
 
-void Actor::takeDamage(DamageTypes damage, int enemyDex)
+void Actor::takeParryDamage(DamageTypes damage)
 {
-    if (deviation)
-    {
-        int currentDex = getDex() - enemyDex;
-        if (currentDex > Dice::roll())
-            return;
-    }
-    health += calculateDamage(damage);
-    if (health <= 0)
+    charsBattle.health += 5 * calculateDamage(damage);
+    if (charsBattle.health <= 0)
+        dead = true;
+}
+
+void Actor::takeDamage(DamageTypes damage)
+{
+    charsBattle.health += calculateDamage(damage);
+    if (charsBattle.health <= 0)
         dead = true;
 }
 
@@ -142,16 +197,43 @@ int Actor::calculateDamage(DamageTypes damage)
 {
     for (int i = 0; i < 4; i++)
     {
-        damage.substract(equip.armor[i].getDamageTypes());
-        equip.armor[i].lowDurability();
-        if (equip.accessory[i].getType() == AccessoryType::defence)
+        if (!equip.armor[i].isBroken())
+        {
+            damage.substract(equip.armor[i].getDamageTypes());
+            equip.armor[i].lowDurability();
+        }
+        if (equip.accessory[i].getType() == AccessoryType::defence && !equip.accessory[i].isBroken())
         {
             damage.substract(equip.accessory[i].getDamageTypes());
             equip.accessory[i].lowDurability();
         }
     }
-    for (int i = 0; i < 2; i++)
-        if (equip.weapon[i].getType() == WeaponType::Shield && protection)
-            damage.substract(equip.weapon[i].getDamageTypes());
+    if (battleMod == BattleMod::Protection)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (equip.twoHanded[i] && is2handed())
+            {
+                if (!equip.weapon[i].isBroken())
+                {
+                    damage.substract(equip.weapon[i].getDamageTypes());
+                    equip.weapon[i].lowDurability();
+                }
+                charsBattle.stamina -= equip.weapon[i].getWeight();
+                break;
+            }
+            else
+            {
+                if (!equip.weapon[i].isBroken())
+                {
+                    damage.substract(equip.weapon[i].getDamageTypes());
+                    equip.weapon[i].lowDurability();
+                }
+                charsBattle.stamina -= equip.weapon[i].getWeight();
+            }
+        }
+        if (charsBattle.stamina < 0)
+            charsBattle.stamina = 0;
+    }
     return -damage.getHealthDamage();
 }

@@ -4,7 +4,7 @@
 #include "accessory.h"
 using namespace std;
 
-int main(int argc, char *argv[])
+int main()
 {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
     font.nFont=100;
     wcscpy(font.FaceName, L"Lucida Console");
     SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), false, &font);
+
+
 
     return 0;
 }
