@@ -1,3 +1,3 @@
 # OOP_kursach
 
-Hello From My Branch :)
+Hello from pmaximum's Branch! :)
