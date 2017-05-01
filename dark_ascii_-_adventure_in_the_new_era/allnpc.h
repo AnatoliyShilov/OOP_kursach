@@ -5,7 +5,7 @@
 using namespace std;
 class AllNPC
 {
-    List <NPC> npcs;
+    List <NPC> npcs;//сохранить
 public:
     AllNPC();
 };

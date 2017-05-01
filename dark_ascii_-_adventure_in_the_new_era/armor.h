@@ -11,8 +11,8 @@ enum ArmorType
 
 class Armor: public Item
 {
-    ArmorType type;
-    int weight;
+    ArmorType type;//сохранить
+    int weight;//сохранить
 public:
     ArmorType getType();
     int getWeight();

@@ -22,8 +22,8 @@ struct Chars
 
 class Accessory: public Item
 {   
-    Chars additionChars;
-    AccessoryType accessoryType;
+    Chars additionChars;//сохранить
+    AccessoryType accessoryType;//сохранить
 public:
     Chars getCharsBonus();
     AccessoryType getType();

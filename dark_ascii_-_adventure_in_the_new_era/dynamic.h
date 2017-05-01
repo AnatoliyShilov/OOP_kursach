@@ -23,8 +23,8 @@ public:
     int size();
     void add(Data data);
     Data get(int number);
-    void remuveAll();
-    void remuve(int number);
+    void removeAll();
+    void remove(int number);
     Link<Data>* getBegin();
     Link<Data>* getEnd();
 };

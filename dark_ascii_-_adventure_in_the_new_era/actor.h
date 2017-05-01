@@ -36,13 +36,13 @@ struct Equipment
 class Actor
 {
 protected:
-    int memoryFragments;//деньги
-    Equipment equip;//экипировка
-    Chars charsMax;//максимальные характеристики
+    int memoryFragments;//деньги//сохранить
+    Equipment equip;//экипировка//сохранить
+    Chars charsMax;//максимальные характеристики//сохранить
     Chars charsCurrent;//характеристики текущие (учитывают нанесенные повреждения, бонусы и штрафы)
     CharsBattle charsBattle;//изменяемые во время битвы параметры
     MedKit medkit;//лечилки
-    DamageTypes damageT;//базовые бонусы к урону
+    DamageTypes damageT;//базовые бонусы к урону//сохранить
     Coordinates coords;//относительные координаты
     BattleMod battleMod;//режим сражения
     bool dead;//статус персонажа - мертв

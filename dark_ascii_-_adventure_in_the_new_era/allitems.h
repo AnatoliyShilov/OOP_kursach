@@ -10,10 +10,10 @@ class AllItems
 {
 
 public:
-    List <Armor> armors;
-    List <Weapon> weapons;
-    List <Accessory> accessories;
-    List <Throwing> throwings;
+    List <Armor> armors;//сохранить
+    List <Weapon> weapons;//сохранить
+    List <Accessory> accessories;//сохранить
+    List <Throwing> throwings;//сохранить
     AllItems();
 };
 

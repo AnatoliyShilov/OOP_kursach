@@ -9,8 +9,8 @@ enum WeaponType
 
 class Weapon: public Item
 {
-    WeaponType weaponType;
-    int weight;
+    WeaponType weaponType;//сохранить
+    int weight;//сохранить
 public:
     Weapon();
     WeaponType getType();

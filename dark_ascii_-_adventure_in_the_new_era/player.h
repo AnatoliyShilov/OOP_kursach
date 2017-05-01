@@ -3,12 +3,12 @@
 #include <actor.h>
 #include <bag.h>
 
-class Player: public Actor
+class Player: public Actor//докинуть номер уровня
 {
-    Bag bag;//сумка
-    int nextLvlCost;//стоимоть следующего уровня
-    int maxFastTravelId;//на сколько далеко можно переместиться
-
+    Bag bag;//сумка//сохранить
+    int curentLvl;//текущий уровень персонажа//сохранить
+    int nextLvlCost;//стоимоть следующего уровня//сохранить
+    int maxFastTravelId;//на сколько далеко можно переместиться//сохранить
 public:
     Player();
     void loot(Bag bag);

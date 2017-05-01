@@ -4,10 +4,11 @@
 
 class Item
 {
-    int id;
-    int maxDurability;
-    int durability;
-    DamageTypes damageT;
+    int id;//сохранить
+    char name[50];//сохранить
+    int maxDurability;//сохранить
+    int durability;//сохранить
+    DamageTypes damageT;//сохранить
 public:
     Item();
     bool isBroken();

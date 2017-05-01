@@ -3,11 +3,12 @@
 #include <actor.h>
 #include "bag.h"
 
-class NPC: public Actor
+class NPC: public Actor//добавить имя
 {
-    int id;
-    bool isEnemy;
-    Bag bag;
+    int id;//сохранить
+    char name[50];//сохранить
+    bool isEnemy;//сохранить
+    Bag bag;//сохранить
 public:
     Bag getBag();
     NPC();
