@@ -5,6 +5,9 @@
 #include <level.h>
 #include <player.h>
 #include "additionfunction.h"
+#include "inventorycontroller.h"
+#include "traidecontroller.h"
+#include "lvlupcontroller.h"
 
 class Controller
 {
@@ -18,6 +21,9 @@ class Controller
     int currentlvl;
     Level lvl;
     Sprites sprites;
+    LvlUPController lvlUpMenu;
+    InventoryController inventoryMenu;
+    TraideController traideMenu;
 public:
     Controller();
     void Run();
@@ -25,17 +31,12 @@ private:
     void newGame();
     void continueGame();
     void exitGame();
-
+    void setCurrentLvl();
     void gameTick();
-
     int menuMain();//
     int menuPause();//
 
     /////////////////
-    int menuInventory();
-    int menuSmith();
-    int menuLvlUp();
-    int menuTrade();
     int menuBattle();
     //////////////////
 

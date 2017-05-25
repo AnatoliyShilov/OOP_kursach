@@ -47,6 +47,7 @@ protected:
     BattleMod battleMod;//режим сражения
     bool dead;//статус персонажа - мертв
     void updateCharsCurrent();//обновить текущие параметры
+    void regenDurability();
     int calculateDamage(DamageTypes damage);//расчет входного урона//вернет кол-во очков здоровья (значение < 0),
                                             //которое будет снято при текущем damage
     int is2handed();//0 - оба оружия в одноручном режиме
@@ -54,6 +55,11 @@ protected:
                     //-1 - оружие 1 в двуручном режиме
 public:
     Actor();
+    void addFragments(int fragments);
+    Chars getMaxChars();
+    Chars getCurrentChars();
+    int getFragments();
+    void lvl0();
     void regenStamina();//восстановление выносливости
     void set2handedW0();//оружие 0 - двуручный режим
     void set2handedW1();//оружие 1 - двуручный режим

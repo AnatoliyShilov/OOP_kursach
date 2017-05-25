@@ -1,5 +1,10 @@
 #include "item.h"
 
+void Item::resetDurability()
+{
+    durability = maxDurability;
+}
+
 Item::Item()
 {
     Item::id = -1;

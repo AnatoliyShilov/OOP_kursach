@@ -14,6 +14,7 @@ public:
     bool isBroken();
     int getId();
     void lowDurability();
+    void resetDurability();
     DamageTypes getDamageTypes();
 };
 

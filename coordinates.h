@@ -13,6 +13,7 @@ public:
     void setCoords(int x, int y);
     int getX();
     int getY();
+    bool equals(Coordinates arg);
 };
 
 #endif // COORDINATES_H

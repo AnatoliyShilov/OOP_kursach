@@ -1,5 +1,10 @@
 #include "level.h"
 
+int Level::getCurrentRoomID()
+{
+    return currentRoom.getX() * 4 + currentRoom.getY();
+}
+
 bool Level::isFree(int x, int y)
 {
     return rooms[currentRoom.getX()][currentRoom.getY()].isFree(x, y);

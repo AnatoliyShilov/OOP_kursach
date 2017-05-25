@@ -1,5 +1,13 @@
 #include "coordinates.h"
 
+bool Coordinates::equals(Coordinates arg)
+{
+    if (this->x == arg.getX() && this->y == arg.getY())
+        return true;
+    else
+        return false;
+}
+
 int Coordinates::getX()
 {
     return x;

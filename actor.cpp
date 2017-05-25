@@ -1,5 +1,33 @@
 #include "actor.h"
 
+void Actor::addFragments(int fragments)
+{
+    memoryFragments += fragments;
+}
+
+int Actor::getFragments()
+{
+    return memoryFragments;
+}
+
+void Actor::lvl0()
+{
+    memoryFragments = 0;
+    dead = false;
+    equip.twoHanded[0] = false;
+    equip.twoHanded[1] = false;
+    charsMax.carry = 45;
+    charsMax.dexterity = 2;
+    charsMax.health = 100;
+    charsMax.regenS = 5;
+    charsMax.stamina = 100;
+    charsMax.strenght = 2;
+    charsCurrent = charsMax;
+    battleMod = BattleMod::None;
+    charsBattle.health = charsCurrent.health;
+    charsBattle.stamina = charsCurrent.stamina;
+}
+
 Actor::Actor()
 {
     memoryFragments = 0;
@@ -18,11 +46,32 @@ Actor::Actor()
     charsBattle.stamina = charsCurrent.stamina;
 }
 
+Chars Actor::getMaxChars()
+{
+    return charsMax;
+}
+
+Chars Actor::getCurrentChars()
+{
+    return charsCurrent;
+}
+
 bool Actor::isCritical(int enemyDex)
 {
     if ((charsCurrent.luck + (charsCurrent.dexterity - enemyDex) / 10) > Dice::roll())
         return true;
     return false;
+}
+
+void Actor::regenDurability()
+{
+    for (int i = 0; i < 4; i++)
+    {
+        equip.accessory[i].resetDurability();
+        equip.armor[i].resetDurability();
+    }
+    for (int i = 0; i < 2; i++)
+        equip.weapon[i].resetDurability();
 }
 
 void Actor::updateCharsCurrent()

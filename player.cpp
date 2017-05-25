@@ -1,5 +1,53 @@
 #include "player.h"
 
+void Player::changeLvl(Chars dxChars, int dxLvl)
+{
+    if (!dxLvl)
+        return;
+    charsMax.health += dxChars.health;
+    charsMax.stamina += dxChars.stamina;
+    charsMax.strenght += dxChars.strenght;
+    charsMax.dexterity += dxChars.dexterity;
+    curentLvl += dxLvl;
+    int sum = 0;
+    for (; dxLvl > 0; dxLvl--)
+    {
+        sum += nextLvlCost;
+        nextLvlCost += nextLvlCost / 10;
+    }
+    memoryFragments -= sum;
+}
+
+int Player::getNextLvlCost()
+{
+    return nextLvlCost;
+}
+
+int Player::getFastTravel()
+{
+   return maxFastTravelId;
+}
+
+void Player::setFastTravel(int lvlId)
+{
+    maxFastTravelId = lvlId;
+}
+
+void Player::lvl0()
+{
+    curentLvl = 0;
+    nextLvlCost = 100;
+    maxFastTravelId = 0;
+    memoryFragments = 0;
+    Actor::lvl0();
+}
+
+void Player::rest()
+{
+    updateCharsCurrent();
+    regenDurability();
+}
+
 Player::Player()
 {
 

@@ -5,6 +5,7 @@
 #include "string.h"
 #include "cell.h"
 #include "ctime"
+#include <iomanip>
 typedef void* pVoid;
 //код завершения программы
 #define EXIT_CODE -1
@@ -29,6 +30,7 @@ typedef void* pVoid;
 #define ESC_KEY 27
 //код клавиши BACKSPACE
 #define BACKSPACE_KEY 8
+#define E_KEY 100
 // * awsd, стрелки, стрелки нум-пада
 // * up (56) (224/0 + 72) (230) (119)
 // * down (50) (224/0 + 80) (235) (115)
@@ -47,8 +49,12 @@ public:
     const char *door[3];
     const char *traider[3];
     const char *fire[3];
+    const char *chest[3];
     virtual void init()
     {
+        chest[0] = "/o\\";
+        chest[1] = "|||";
+        chest[2] = "===";
         fire[0] = " **";
         fire[1] = "** ";
         fire[2] = "/|\\";
@@ -94,10 +100,18 @@ public:
         return 0;
     }
 
-    void static printRoom(int currentlvl, Cell** cells, Coordinates Poss[3], Sprites s)
+    void static printRoom(int currentlvl, Cell** cells, Coordinates Poss[3], Sprites s, int roomID)
     {
         system("cls");
-        //std::cout<<"Уровень "<<currentlvl<<"\n";///////////////////////////////////////
+        char **info = new char* [8];
+        char buf[5];
+        for (int i = 0; i < 8; i++)
+        {
+            info[i] = new char [20];
+            strcpy(info[i], "\0");
+        }
+        strcpy(info[0], "Уровень ");
+        strcat(info[0], itoa(currentlvl, buf, 10));
         for (int i = 0; i < 8; i++)
         {
             for (int k = 0; k < 3; k++)
@@ -134,21 +148,23 @@ public:
                         break;
                     }
                     }
-                    if (!currentlvl)
-                    {
-                        if (Poss[1].getX() == j && Poss[1].getY() == i)
-                            std::cout<<char(8)<<char(8)<<char(8)<<s.traider[k];
-                        if (Poss[2].getX() == j && Poss[2].getY() == i)
-                            std::cout<<char(8)<<char(8)<<char(8)<<s.fire[k];
-                    }
+                    if (Poss[1].getX() == j && Poss[1].getY() == i && !currentlvl)
+                        std::cout<<char(8)<<char(8)<<char(8)<<s.traider[k];
+                    if (Poss[2].getX() == j && Poss[2].getY() == i && !(currentlvl % 5) && !roomID)
+                        std::cout<<char(8)<<char(8)<<char(8)<<s.fire[k];
                     if (Poss[0].getX() == j && Poss[0].getY() == i)
                         std::cout<<char(8)<<char(8)<<char(8)<<s.player[k];
                 }
+                if (k == 1)
+                    std::cout<<"\t"<<info[i];
                 std::cout<<"\n";
             }
         }
         for (int i = 0; i < 8; i++)
+        {
+            delete []info[i];
             delete []cells[i];
+        }
     }
 };
 
@@ -172,6 +188,48 @@ public:
               "   #=/       /==#     +==/    /==+\\#  @==/     /==#   +==/    /==+\\+   @=@/#\\    "
               "+@@@@@+   /#@@@@@@@\\  #@\\     /==#/  \\@/\\#==@@=@+/    @@\\     /==+/    @==\\     \n\n"
                ;
+    }
+
+    static bool askWindow(const char *title, const char *info)
+    {
+        char indicator[2];
+        indicator[0] = ' ';
+        indicator[1] = '>';
+        int currentAns = 1;
+        int key;
+        while (true)
+        {
+            system("cls");
+            std::cout<<"\t\t\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\\n";
+            std::cout<<"\t\t\\   "<<title<<"   /\n\n\t\t\\   "<<info<<"   /\n\n\t\t\\   ";
+            std::cout<<indicator[0]<<" ДА\t"<<indicator[1]<<" НЕТ   /\n";
+            std::cout<<"\t\t\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\\n";
+            key = keyDecoder(getch());
+            if (key == ENTER)
+                return !currentAns;
+            if (key == EXIT_CODE)
+                return false;
+            indicator[currentAns] = ' ';
+            if (key == LEFT)
+            {
+                currentAns = 0;
+            }
+            if (key == RIGHT)
+            {
+                currentAns = 1;
+            }
+            indicator[currentAns] = '>';
+        }
+    }
+
+    static void info(const char *title, const char *info)
+    {
+        system("cls");
+        std::cout
+                <<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
+                <<"\t\tX   "<<title<<"   X\n\n\t\tX   "<<info<<"   X\n\n"
+                <<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\t";
+        system("pause");
     }
 
     inline int static displayVertical(const char* title, const char *nameOptions[], int count, void (*addInfo)(pVoid), pVoid arg)
@@ -270,6 +328,8 @@ public:
             return RIGHT;//R
         if (key == 750 || key == 52 || key == 228 || key == 97)// * left (224/0 + 75) (52) (228) (100)
             return LEFT;//L
+        if (key == int('e') || key == int('E'))
+            return E_KEY;
         return ERROR_CODE;
     }
 };

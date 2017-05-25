@@ -12,6 +12,7 @@ class Level
 public:
     Level();
     void lvl0();
+    int getCurrentRoomID();
     int* getInterval();
     void setLvl(Room rooms[4][4], int interval, Coordinates currentRoom);
     Room getRoom(int row, int column);

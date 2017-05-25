@@ -21,7 +21,11 @@ SOURCES += main.cpp \
     cell.cpp \
     room.cpp \
     level.cpp \
-    controller.cpp
+    controller.cpp \
+    traidecontroller.cpp \
+    inventorycontroller.cpp \
+    lvlupcontroller.cpp \
+    abstractcontroller.cpp
 
 HEADERS += \
     item.h \
@@ -43,4 +47,8 @@ HEADERS += \
     level.h \
     controller.h \
     dynamic.h \
-    additionfunction.h
+    additionfunction.h \
+    traidecontroller.h \
+    inventorycontroller.h \
+    lvlupcontroller.h \
+    abstractcontroller.h

@@ -11,6 +11,12 @@ class Player: public Actor//докинуть номер уровня
     int maxFastTravelId;//на сколько далеко можно переместиться//сохранить
 public:
     Player();
+    void setFastTravel(int lvlId);
+    int getFastTravel();
+    int getNextLvlCost();
+    void changeLvl(Chars dxChars, int dxLvl);
+    void lvl0();
+    void rest();
     void loot(Bag bag);
     Bag openBag();//просмотр сумки
     void changeCoords(int dx, int dy);//переместиться
