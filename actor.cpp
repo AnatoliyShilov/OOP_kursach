@@ -40,6 +40,7 @@ Actor::Actor()
     charsMax.regenS = 0;
     charsMax.stamina = 0;
     charsMax.strenght = 0;
+    charsMax.luck = 10;
     charsCurrent = charsMax;
     battleMod = BattleMod::None;
     charsBattle.health = charsCurrent.health;
@@ -98,6 +99,11 @@ void Actor::updateCharsCurrent()
         charsBattle.health = charsCurrent.health;
     if (charsBattle.stamina > charsBattle.stamina)
         charsBattle.stamina = charsCurrent.stamina;
+    damageT = DamageTypes(charsCurrent.strenght,
+                          charsCurrent.dexterity * 3 + charsCurrent.strenght / 2.0,
+                          charsCurrent.dexterity * 2 + charsCurrent.strenght * 2,
+                          charsCurrent.dexterity / 2.0 + charsCurrent.strenght * 3,
+                          0, 0);
 }
 
 void Actor::regenStamina()

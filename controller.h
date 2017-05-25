@@ -15,7 +15,7 @@ class Controller
     Coordinates playerPos;
     Coordinates traiderPos;
     Coordinates firePos;
-    AllNPC allNPC;
+    AllNPC allNPC;//TODO allItems allNPC не грузятся
     AllItems allItems;
     void (Controller::*fMain[2])();
     int currentlvl;
@@ -26,6 +26,7 @@ class Controller
     TraideController traideMenu;
 public:
     Controller();
+    ~Controller();
     void Run();
 private:
     void newGame();
@@ -33,16 +34,12 @@ private:
     void exitGame();
     void setCurrentLvl();
     void gameTick();
-    int menuMain();//
-    int menuPause();//
+    int menuMain();
+    int menuPause();
 
     /////////////////
     int menuBattle();
     //////////////////
-
-    void changeCoords();
-    void checkCell();
-    void drawRoom();
 };
 
 #endif // CONTROLLER_H

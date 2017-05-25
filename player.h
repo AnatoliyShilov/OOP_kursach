@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include <actor.h>
 #include <bag.h>
+#include <fstream>
 
 class Player: public Actor//докинуть номер уровня
 {
@@ -11,6 +12,8 @@ class Player: public Actor//докинуть номер уровня
     int maxFastTravelId;//на сколько далеко можно переместиться//сохранить
 public:
     Player();
+    void save(const char *file);
+    void load(const char *file, AllItems allItems);
     void setFastTravel(int lvlId);
     int getFastTravel();
     int getNextLvlCost();

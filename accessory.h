@@ -20,11 +20,20 @@ struct Chars
     int regenS;//восстановление выносливости
 };
 
+struct AccessoryInfo
+{
+    Chars additionChars;
+    AccessoryType accessoryType;
+    ItemInfo item;
+};
+
 class Accessory: public Item
 {   
     Chars additionChars;//сохранить
     AccessoryType accessoryType;//сохранить
 public:
+    AccessoryInfo getInfo();
+    void setInfo(AccessoryInfo info);
     Chars getCharsBonus();
     AccessoryType getType();
     Accessory();

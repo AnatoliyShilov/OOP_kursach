@@ -1,9 +1,41 @@
 #include "damagetypes.h"
 
+void DamageTypes::setInfo(DamageTypesInfo info)
+{
+     this->bleeding = info.bleeding;
+     this->crushing = info.crushing;
+     this->cutting = info.cutting;
+     this->general = info.general;
+     this->poisoning = info.poisoning;
+     this->pricking = info.pricking;
+}
+
+DamageTypesInfo DamageTypes::getInfo()
+{
+    DamageTypesInfo info;
+    info.bleeding = this->bleeding;
+    info.crushing = this->crushing;
+    info.cutting = this->cutting;
+    info.general = this->general;
+    info.poisoning = this->poisoning;
+    info.pricking = this->pricking;
+    return info;
+}
+
 DamageTypes::DamageTypes()
 {
     poisoning = bleeding = pricking = cutting = crushing = 0;
     general = 0;
+}
+
+DamageTypes::DamageTypes(int general, float pricking, float cutting, float crushing, float bleeding, float poisoning)
+{
+    this->general = general;
+    this->pricking = pricking;
+    this->cutting = cutting;
+    this->crushing = crushing;
+    this->bleeding = bleeding;
+    this->poisoning = poisoning;
 }
 
 void DamageTypes::addToGeneral(int value)

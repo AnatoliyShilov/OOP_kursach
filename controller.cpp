@@ -56,6 +56,7 @@ void Controller::gameTick()
                         (lvl.getCurrentRoomID() == 0) &&
                         !currentlvl)
                 {
+                    player.save("pl.sav");
                     lvlUpMenu.start();
                     setCurrentLvl();
                 }
@@ -130,6 +131,8 @@ void Controller::gameTick()
 
 void Controller::newGame()
 {
+    player.lvl0();
+    player.save("pl.sav");
     if (!Menu::askWindow("Начать новую игру?", "Данное действие не обратимо!"))
         return;
     Controller::continueGame();
@@ -179,9 +182,17 @@ int Controller::menuMain()
 
 void Controller::Run()
 {
+    if (allItems.load("it.sav") == ERROR_CODE)
+        return;
     Menu::logo();
     system("pause");
     menuMain();
+}
+
+Controller::~Controller()
+{
+    player.save("pl.sav");
+    allItems.save("it.sav");
 }
 
 Controller::Controller()
@@ -192,7 +203,7 @@ Controller::Controller()
     firePos.setCoords(4, 4);
     traiderPos.setCoords(6, 4);
     lvl.lvl0();
-    player.lvl0();
+    player.load("pl.sav", allItems);
     currentlvl = 0;
     fMain[0] = Controller::continueGame;
     fMain[1] = Controller::newGame;

@@ -42,7 +42,7 @@ protected:
     Chars charsCurrent;//характеристики текущие (учитывают нанесенные повреждения, бонусы и штрафы)
     CharsBattle charsBattle;//изменяемые во время битвы параметры
     MedKit medkit;//лечилки
-    DamageTypes damageT;//базовые бонусы к урону//сохранить
+    DamageTypes damageT;//базовые бонусы к урону
     Coordinates coords;//относительные координаты
     BattleMod battleMod;//режим сражения
     bool dead;//статус персонажа - мертв

@@ -21,6 +21,7 @@ public:
     List();
     ~List();
     int size();
+    bool isEmpty();
     void add(Data data);
     Data get(int number);
     void removeAll();
@@ -28,6 +29,15 @@ public:
     Link<Data>* getBegin();
     Link<Data>* getEnd();
 };
+
+template <class Data>
+bool List<Data>::isEmpty()
+{
+    if (begin == NULL)
+        return true;
+    else
+        return false;
+}
 
 template<class Data>
 int List<Data>::size()

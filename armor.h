@@ -9,11 +9,20 @@ enum ArmorType
     leggings
 };
 
+struct ArmorInfo
+{
+    ArmorType type;
+    int weight;
+    ItemInfo item;
+};
+
 class Armor: public Item
 {
     ArmorType type;//сохранить
     int weight;//сохранить
 public:
+    ArmorInfo getInfo();
+    void setInfo(ArmorInfo info);
     ArmorType getType();
     int getWeight();
     Armor();

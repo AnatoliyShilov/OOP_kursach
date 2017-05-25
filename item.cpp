@@ -1,5 +1,25 @@
 #include "item.h"
 
+void Item::setInfo(ItemInfo info)
+{
+    this->damageT.setInfo(info.damageT);
+    this->durability = info.durability;
+    this->id = info.id;
+    this->maxDurability = info.maxDurability;
+    strcpy(this->name, info.name);
+}
+
+ItemInfo Item::getInfo()
+{
+    ItemInfo info;
+    info.damageT = this->damageT.getInfo();
+    info.durability = this->durability;
+    info.id = this->id;
+    info.maxDurability = this->maxDurability;
+    strcpy(info.name, this->name);
+    return info;
+}
+
 void Item::resetDurability()
 {
     durability = maxDurability;
@@ -7,8 +27,8 @@ void Item::resetDurability()
 
 Item::Item()
 {
-    Item::id = -1;
-    Item::durability = -1;
+    Item::id = 0;
+    Item::durability = 0;
 }
 
 bool Item::isBroken()
