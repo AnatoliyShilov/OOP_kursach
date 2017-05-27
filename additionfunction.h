@@ -100,24 +100,24 @@ public:
         return 0;
     }
 
-    void static printRoom(int currentlvl, Cell** cells, Coordinates Poss[3], Sprites s, int roomID)
+    void static printRoom(int currentlvl, Cell** cells, int roomSize, Coordinates Poss[3], Sprites s, int roomID)
     {
         system("cls");
-        char **info = new char* [8];
+        char **info = new char* [roomSize];
         char buf[5];
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < roomSize; i++)
         {
             info[i] = new char [20];
             strcpy(info[i], "\0");
         }
         strcpy(info[0], "Óðîâåíü ");
         strcat(info[0], itoa(currentlvl, buf, 10));
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < roomSize; i++)
         {
             for (int k = 0; k < 3; k++)
             {
                 std::cout<<"\t\t";
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < roomSize; j++)
                 {
                     switch (cells[i][j].getType())
                     {
@@ -160,7 +160,7 @@ public:
                 std::cout<<"\n";
             }
         }
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < roomSize; i++)
         {
             delete []info[i];
             delete []cells[i];
@@ -200,10 +200,10 @@ public:
         while (true)
         {
             system("cls");
-            std::cout<<"\t\t\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\\n";
-            std::cout<<"\t\t\\   "<<title<<"   /\n\n\t\t\\   "<<info<<"   /\n\n\t\t\\   ";
-            std::cout<<indicator[0]<<" ÄÀ\t"<<indicator[1]<<" ÍÅÒ   /\n";
-            std::cout<<"\t\t\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\\n";
+            std::cout<<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+            std::cout<<"\t\tX   "<<title<<"   X\n\n\t\tX   "<<info<<"   X\n\n\t\t   ";
+            std::cout<<"( "<<indicator[0]<<") ÄÀ\t( "<<indicator[1]<<") ÍÅÒ   \n";
+            std::cout<<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\t";
             key = keyDecoder(getch());
             if (key == ENTER)
                 return !currentAns;

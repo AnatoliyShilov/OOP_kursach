@@ -9,7 +9,8 @@ void LvlUPController::lvlUPMenu()
     chars[1] = player->getMaxChars().stamina;
     chars[2] = player->getMaxChars().strenght;
     chars[3] = player->getMaxChars().dexterity;
-    int nextLvlCost = player->getNextLvlCost(), dxLvl = 0;
+    PlayerInfo info = player->getInfo();
+    int dxLvl = 0;
     int sum = 0, key, parametr = 0;
     char indicator[4][2];
     indicator[0][0] = '<';
@@ -20,14 +21,18 @@ void LvlUPController::lvlUPMenu()
     {
         system("cls");
         std::cout
-                <<"\n\tМеню повышения уровня\n"
-                <<"\tОсколки воспоминаний: "<<player->getFragments()<<"\n"
-                <<"\tОстаток: "<<player->getFragments() - sum<<"\n"
-                <<"\tСледующий уровень: "<<nextLvlCost<<"\n"
-                <<"\tЗдоровье       "<<setw(4)<<chars[0]<<" -> "<<indicator[0][0]<<" "<<setw(4)<<chars[0] + dxChars[0] * 10<<" "<<indicator[0][1]<<"\n"
-                <<"\tВыносливость   "<<setw(4)<<chars[1]<<" -> "<<indicator[1][0]<<" "<<setw(4)<<chars[1] + dxChars[1] * 5<<" "<<indicator[1][1]<<"\n"
-                <<"\tСила           "<<setw(4)<<chars[2]<<" -> "<<indicator[2][0]<<" "<<setw(4)<<chars[2] + dxChars[2]<<" "<<indicator[2][1]<<"\n"
-                <<"\tЛовкость       "<<setw(4)<<chars[3]<<" -> "<<indicator[3][0]<<" "<<setw(4)<<chars[3] + dxChars[3]<<" "<<indicator[3][1]<<"\n"
+                <<"\t\t\t[] Меню повышения уровня []\n"
+                <<"\t\t[][][][][][][][][][][][][][][][][][][][]\n"
+                <<"\t\t[] Осколки воспоминаний:  "<<setw(10)<<info.memoryFragments<<"  []\n"
+                <<"\t\t[] Остаток:               "<<setw(10)<<info.memoryFragments - sum<<"  []\n"
+                <<"\t\t[] Следующий уровень:     "<<setw(10)<<info.nextLvlCost<<"  []\n"
+                <<"\t\t[][][][][][][][][][][][][][][][][][][][]\n"
+                <<"\t\t[] Уровень        "<<setw(4)<<info.curentLvl<<" -> "<<setw(4)<<info.curentLvl + dxLvl<<"        []\n"
+                <<"\t\t[] Здоровье       "<<setw(4)<<chars[0]<<" -> "<<indicator[0][0]<<" "<<setw(4)<<chars[0] + dxChars[0] * 10<<" "<<indicator[0][1]<<"    []\n"
+                <<"\t\t[] Выносливость   "<<setw(4)<<chars[1]<<" -> "<<indicator[1][0]<<" "<<setw(4)<<chars[1] + dxChars[1] * 5<<" "<<indicator[1][1]<<"    []\n"
+                <<"\t\t[] Сила           "<<setw(4)<<chars[2]<<" -> "<<indicator[2][0]<<" "<<setw(4)<<chars[2] + dxChars[2]<<" "<<indicator[2][1]<<"    []\n"
+                <<"\t\t[] Ловкость       "<<setw(4)<<chars[3]<<" -> "<<indicator[3][0]<<" "<<setw(4)<<chars[3] + dxChars[3]<<" "<<indicator[3][1]<<"    []\n"
+                <<"\t\t[][][][][][][][][][][][][][][][][][][][]\n"
                 <<"\t\tENTER - подтвердить   BACKSPACE - отмена\n";
         key = Menu::keyDecoder(getch());
         indicator[parametr][0] = indicator[parametr][1] = ' ';
@@ -45,7 +50,7 @@ void LvlUPController::lvlUPMenu()
         }
         indicator[parametr][0] = '<';
         indicator[parametr][1] = '>';
-        if (key == RIGHT && (sum + nextLvlCost <= player->getFragments()))
+        if (key == RIGHT && (sum + info.nextLvlCost <= info.memoryFragments))
         {
             dxLvl++;
             dxChars[parametr]++;
@@ -56,11 +61,11 @@ void LvlUPController::lvlUPMenu()
             dxChars[parametr]--;
         }
         sum = 0;
-        nextLvlCost = player->getNextLvlCost();
+        info.nextLvlCost = player->getNextLvlCost();
         for (int i = 0; i < dxLvl; i++)
         {
-            sum += nextLvlCost;
-            nextLvlCost += nextLvlCost / 10;
+            sum += info.nextLvlCost;
+            info.nextLvlCost += info.nextLvlCost / 10;
         }
         if (key == ENTER)
             break;
@@ -84,6 +89,7 @@ int LvlUPController::getTravelTo()
 void LvlUPController::fastTravelMenu()
 {
     int key;
+    travelTo = player->getFastTravel();
     while (true)
     {
         system("cls");
@@ -114,7 +120,6 @@ void LvlUPController::fastTravelMenu()
 int LvlUPController::start()
 {
     player->rest();
-    travelTo = player->getFastTravel();
     Menu::info("Персонаж отдохнул.", "Неведомая сила укрепила ваш дух и тело.");
     const char *optionsName[] =
     {

@@ -2,10 +2,11 @@
 #define LEVEL_H
 #include <room.h>
 #include <additionfunction.h>
+#define LVL_SIZE 5 //4
 
 class Level
 {
-    Room rooms[4][4];
+    Room rooms[LVL_SIZE][LVL_SIZE];
     Coordinates currentRoom;
     int interval;
     void eller();
@@ -14,7 +15,7 @@ public:
     void lvl0();
     int getCurrentRoomID();
     int* getInterval();
-    void setLvl(Room rooms[4][4], int interval, Coordinates currentRoom);
+    void setLvl(Room rooms[LVL_SIZE][LVL_SIZE], int interval, Coordinates currentRoom);
     Room getRoom(int row, int column);
     Room getCurrentRoom();
     Coordinates getCurrentRoomCoord();

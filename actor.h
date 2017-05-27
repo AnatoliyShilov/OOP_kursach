@@ -43,7 +43,6 @@ protected:
     CharsBattle charsBattle;//изменяемые во время битвы параметры
     MedKit medkit;//лечилки
     DamageTypes damageT;//базовые бонусы к урону
-    Coordinates coords;//относительные координаты
     BattleMod battleMod;//режим сражения
     bool dead;//статус персонажа - мертв
     void updateCharsCurrent();//обновить текущие параметры
@@ -55,6 +54,7 @@ protected:
                     //-1 - оружие 1 в двуручном режиме
 public:
     Actor();
+    Equipment getEquipment();
     void addFragments(int fragments);
     Chars getMaxChars();
     Chars getCurrentChars();

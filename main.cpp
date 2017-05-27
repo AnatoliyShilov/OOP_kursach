@@ -9,6 +9,7 @@ int main()
     SetConsoleOutputCP(1251);
 
     SetConsoleTitle(L"Dark ASCII");//Dark ASCII - Adventure in the new era
+    system ("mode con cols=80 lines=35");
     CONSOLE_FONT_INFOEX font;
     font.cbSize=sizeof(font);
     font.dwFontSize.X=14;

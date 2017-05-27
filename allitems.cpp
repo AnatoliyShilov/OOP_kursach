@@ -19,6 +19,7 @@ void AllItems::save(const char *file)
                  accessory.additionChars.strenght<<" "<<
                  accessory.item.damageT.bleeding<<" "<<
                  accessory.item.damageT.crushing<<" "<<
+                 accessory.item.damageT.cutting<<" "<<
                  accessory.item.damageT.general<<" "<<
                  accessory.item.damageT.poisoning<<" "<<
                  accessory.item.damageT.pricking<<" "<<
@@ -26,7 +27,7 @@ void AllItems::save(const char *file)
                  accessory.item.id<<" "<<
                  accessory.item.maxDurability<<" "<<
                  accessory.item.name;
-            out<<"##\n";
+            out<<" ##\n";
         }
     }
     out<<" # ";
@@ -40,6 +41,7 @@ void AllItems::save(const char *file)
                  armor.weight<<" "<<
                  armor.item.damageT.bleeding<<" "<<
                  armor.item.damageT.crushing<<" "<<
+                 armor.item.damageT.cutting<<" "<<
                  armor.item.damageT.general<<" "<<
                  armor.item.damageT.poisoning<<" "<<
                  armor.item.damageT.pricking<<" "<<
@@ -47,7 +49,7 @@ void AllItems::save(const char *file)
                  armor.item.id<<" "<<
                  armor.item.maxDurability<<" "<<
                  armor.item.name;
-            out<<"##\n";
+            out<<" ##\n";
         }
     }
     out<<" # ";
@@ -61,6 +63,7 @@ void AllItems::save(const char *file)
                  weapon.weight<<" "<<
                  weapon.item.damageT.bleeding<<" "<<
                  weapon.item.damageT.crushing<<" "<<
+                 weapon.item.damageT.cutting<<" "<<
                  weapon.item.damageT.general<<" "<<
                  weapon.item.damageT.poisoning<<" "<<
                  weapon.item.damageT.pricking<<" "<<
@@ -68,7 +71,7 @@ void AllItems::save(const char *file)
                  weapon.item.id<<" "<<
                  weapon.item.maxDurability<<" "<<
                  weapon.item.name;
-            out<<"##\n";
+            out<<" ##\n";
         }
     }
     out<<" # ";
@@ -107,6 +110,7 @@ int AllItems::load(const char *file)
              acInfo.additionChars.strenght>>
              acInfo.item.damageT.bleeding>>
              acInfo.item.damageT.crushing>>
+             acInfo.item.damageT.cutting>>
              acInfo.item.damageT.general>>
              acInfo.item.damageT.poisoning>>
              acInfo.item.damageT.pricking>>
@@ -120,6 +124,7 @@ int AllItems::load(const char *file)
             in>>buf;
             if (!strcmp(buf, "##"))
                 break;
+            strcat(acInfo.item.name, " ");
             strcat(acInfo.item.name, buf);
         }
         ac.setInfo(acInfo);
@@ -135,6 +140,7 @@ int AllItems::load(const char *file)
         in>>arInfo.weight>>
              arInfo.item.damageT.bleeding>>
              arInfo.item.damageT.crushing>>
+             arInfo.item.damageT.cutting>>
              arInfo.item.damageT.general>>
              arInfo.item.damageT.poisoning>>
              arInfo.item.damageT.pricking>>
@@ -148,6 +154,7 @@ int AllItems::load(const char *file)
             in>>buf;
             if (!strcmp(buf, "##"))
                 break;
+            strcat(arInfo.item.name, " ");
             strcat(arInfo.item.name, buf);
         }
         ar.setInfo(arInfo);
@@ -163,6 +170,7 @@ int AllItems::load(const char *file)
         in>>wInfo.weight>>
              wInfo.item.damageT.bleeding>>
              wInfo.item.damageT.crushing>>
+             wInfo.item.damageT.cutting>>
              wInfo.item.damageT.general>>
              wInfo.item.damageT.poisoning>>
              wInfo.item.damageT.pricking>>
@@ -176,6 +184,7 @@ int AllItems::load(const char *file)
             in>>buf;
             if (!strcmp(buf, "##"))
                 break;
+            strcat(wInfo.item.name, " ");
             strcat(wInfo.item.name, buf);
         }
         w.setInfo(wInfo);

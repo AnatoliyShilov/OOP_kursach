@@ -9,7 +9,7 @@ void Controller::setCurrentLvl()
         lvl.generateLvl(Coordinates(0, 0));
     else
         lvl.lvl0();
-    playerPos.setCoords(4, 4);
+    playerPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
 }
 
 void Controller::gameTick()
@@ -23,6 +23,7 @@ void Controller::gameTick()
         Poss[0] = playerPos;
         PrintFuncs::printRoom(currentlvl,
                               lvl.getCurrentRoom().getCells(),
+                              ROOM_SIZE,
                               Poss,
                               sprites,
                               lvl.getCurrentRoomID());
@@ -54,7 +55,7 @@ void Controller::gameTick()
             {
                 if (playerPos.equals(firePos) &&
                         (lvl.getCurrentRoomID() == 0) &&
-                        !currentlvl)
+                        !(currentlvl % 5))
                 {
                     player.save("pl.sav");
                     lvlUpMenu.start();
@@ -73,7 +74,7 @@ void Controller::gameTick()
         {
             currentlvl++;
             lvl.generateLvl(Coordinates(0, 0));
-            playerPos.setCoords(4, 4);
+            playerPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
             if (!(currentlvl % 5))
                 player.setFastTravel(currentlvl);
             break;
@@ -81,13 +82,13 @@ void Controller::gameTick()
         case WAYOUT:
         {
             currentlvl--;
-            playerPos.setCoords(4, 4);
+            playerPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
             if (!currentlvl)
             {
                 lvl.lvl0();
                 break;
             }
-            lvl.generateLvl(Coordinates(3, 3));
+            lvl.generateLvl(Coordinates(LVL_SIZE - 1, LVL_SIZE - 1));
             break;
         }
         case TRAP:
@@ -99,25 +100,25 @@ void Controller::gameTick()
             if (playerPos.getY() == 0)
             {
                 lvl.changeCurrentRoom(-1, 0);
-                playerPos.changeCoords(0, 7);
+                playerPos.changeCoords(0, ROOM_SIZE - 1);
                 break;
             }
-            if (playerPos.getY() == 7)
+            if (playerPos.getY() == ROOM_SIZE - 1)
             {
                 lvl.changeCurrentRoom(1, 0);
-                playerPos.changeCoords(0, -7);
+                playerPos.changeCoords(0, -ROOM_SIZE + 1);
                 break;
             }
             if (playerPos.getX() == 0)
             {
                 lvl.changeCurrentRoom(0, -1);
-                playerPos.changeCoords(7, 0);
+                playerPos.changeCoords(ROOM_SIZE - 1, 0);
                 break;
             }
-            if (playerPos.getX() == 7)
+            if (playerPos.getX() == ROOM_SIZE - 1)
             {
                 lvl.changeCurrentRoom(0, 1);
-                playerPos.changeCoords(-7, 0);
+                playerPos.changeCoords(-ROOM_SIZE + 1, 0);
                 break;
             }
             break;
@@ -133,6 +134,9 @@ void Controller::newGame()
 {
     player.lvl0();
     player.save("pl.sav");
+    playerPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
+    lvl.lvl0();
+    currentlvl = 0;
     if (!Menu::askWindow("Начать новую игру?", "Данное действие не обратимо!"))
         return;
     Controller::continueGame();
@@ -184,6 +188,7 @@ void Controller::Run()
 {
     if (allItems.load("it.sav") == ERROR_CODE)
         return;
+    player.load("pl.sav", &allItems);
     Menu::logo();
     system("pause");
     menuMain();
@@ -199,11 +204,10 @@ Controller::Controller()
 {
     //TODO ???
     sprites.init();
-    playerPos.setCoords(4, 4);
-    firePos.setCoords(4, 4);
-    traiderPos.setCoords(6, 4);
+    playerPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
+    firePos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
+    traiderPos.setCoords(7, 4);
     lvl.lvl0();
-    player.load("pl.sav", allItems);
     currentlvl = 0;
     fMain[0] = Controller::continueGame;
     fMain[1] = Controller::newGame;

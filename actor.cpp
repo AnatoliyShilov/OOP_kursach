@@ -1,5 +1,10 @@
 #include "actor.h"
 
+Equipment Actor::getEquipment()
+{
+    return this->equip;
+}
+
 void Actor::addFragments(int fragments)
 {
     memoryFragments += fragments;
@@ -16,12 +21,12 @@ void Actor::lvl0()
     dead = false;
     equip.twoHanded[0] = false;
     equip.twoHanded[1] = false;
-    charsMax.carry = 45;
-    charsMax.dexterity = 2;
+    charsMax.carry = 10;
+    charsMax.dexterity = 5;
     charsMax.health = 100;
-    charsMax.regenS = 5;
+    charsMax.regenS = 10;
     charsMax.stamina = 100;
-    charsMax.strenght = 2;
+    charsMax.strenght = 5;
     charsCurrent = charsMax;
     battleMod = BattleMod::None;
     charsBattle.health = charsCurrent.health;
@@ -78,19 +83,22 @@ void Actor::regenDurability()
 void Actor::updateCharsCurrent()
 {
     charsCurrent = charsMax;
+    charsCurrent.regenS = charsCurrent.carry = 0;
     for (int i = 0; i < 4; i++)
     {
-        if (!equip.accessory[i].isBroken())
+        if (!equip.accessory[i].isBroken() && equip.accessory[i].getId())
         {
-            charsCurrent.carry += equip.accessory[i].getCharsBonus().carry;
             charsCurrent.dexterity += equip.accessory[i].getCharsBonus().dexterity;
             charsCurrent.health += equip.accessory[i].getCharsBonus().health;
             charsCurrent.luck += equip.accessory[i].getCharsBonus().luck;
+            charsCurrent.stamina += equip.accessory[i].getCharsBonus().stamina * 5;
             charsCurrent.regenS += equip.accessory[i].getCharsBonus().regenS;
-            charsCurrent.stamina += equip.accessory[i].getCharsBonus().stamina;
             charsCurrent.strenght += equip.accessory[i].getCharsBonus().strenght;
+            charsCurrent.carry += equip.accessory[i].getCharsBonus().carry;
         }
     }
+    charsCurrent.regenS += charsCurrent.stamina / 10;
+    charsCurrent.carry += charsCurrent.strenght * 2;
     for (int i = 0; i < 2; i++)
         charsCurrent.carry -= equip.weapon[i].getWeight();
     for (int i = 0; i < 4; i++)

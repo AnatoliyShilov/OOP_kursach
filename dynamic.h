@@ -25,10 +25,20 @@ public:
     void add(Data data);
     Data get(int number);
     void removeAll();
+    static void swap(Link<Data> *to, Link<Data> *from);
     void remove(int number);
+    void remove(Link<Data> *link);
     Link<Data>* getBegin();
     Link<Data>* getEnd();
 };
+
+template <class Data>
+void List<Data>::swap(Link<Data> *to, Link<Data> *from)
+{
+    Data temp = from->data;
+    from->data = to->data;
+    to->data = temp;
+}
 
 template <class Data>
 bool List<Data>::isEmpty()
@@ -61,13 +71,49 @@ List<Data>::~List()
 }
 
 template<class Data>
+void List<Data>::remove(Link<Data> *link)
+{
+    if (link == begin)
+    {
+        begin = begin->Next;
+        begin->Prev = NULL;
+    }
+    else
+        if (link == end)
+        {
+            end = end->Prev;
+            end->Next = NULL;
+        }
+        else
+        {
+            link->Next->Prev = link->Prev;
+            link->Prev->Next = link->Next;
+        }
+    delete link;
+}
+
+template<class Data>
 void List<Data>::remove(int number)
 {
     Link<Data> *temp = begin;
     for (; temp && number; number--)
         temp = temp->Next;
-    temp->Next->Prev = temp->Prev;
-    temp->Prev->Next = temp->Next;
+    if (temp == begin)
+    {
+        begin = begin->Next;
+        begin->Prev = NULL;
+    }
+    else
+        if (temp == end)
+        {
+            end = end->Prev;
+            end->Next = NULL;
+        }
+        else
+        {
+            temp->Next->Prev = temp->Prev;
+            temp->Prev->Next = temp->Next;
+        }
     delete temp;
 }
 
@@ -87,7 +133,7 @@ template<class Data>
 Data List<Data>::get(int number)
 {
     Link<Data> *temp = begin;
-    for (; temp && number; number--)
+    for (; temp && number > 0; number--)
         temp = temp->Next;
     return temp->data;
 }

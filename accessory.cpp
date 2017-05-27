@@ -19,6 +19,13 @@ AccessoryInfo Accessory::getInfo()
 Accessory::Accessory()
 {
     Accessory::accessoryType = AccessoryType::defence;
+    additionChars.carry =
+            additionChars.dexterity =
+            additionChars.health =
+            additionChars.luck =
+            additionChars.regenS =
+            additionChars.stamina =
+            additionChars.strenght = 0;
 }
 
 AccessoryType Accessory::getType()

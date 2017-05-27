@@ -4,6 +4,16 @@
 #include <bag.h>
 #include <fstream>
 
+struct PlayerInfo
+{
+    int curentLvl;
+    int nextLvlCost;
+    int maxFastTravelId;
+    int memoryFragments;
+    Chars charsMax;
+    Chars charsCurrent;
+};
+
 class Player: public Actor//докинуть номер уровня
 {
     Bag bag;//сумка//сохранить
@@ -12,8 +22,9 @@ class Player: public Actor//докинуть номер уровня
     int maxFastTravelId;//на сколько далеко можно переместиться//сохранить
 public:
     Player();
+    PlayerInfo getInfo();
     void save(const char *file);
-    void load(const char *file, AllItems allItems);
+    void load(const char *file, AllItems *allItems);
     void setFastTravel(int lvlId);
     int getFastTravel();
     int getNextLvlCost();
@@ -21,13 +32,14 @@ public:
     void lvl0();
     void rest();
     void loot(Bag bag);
-    Bag openBag();//просмотр сумки
-    void changeCoords(int dx, int dy);//переместиться
+    Bag *openBag();//просмотр сумки
+    void sort();
+    void cleanArmor(int index);
+    void cleanWeapon(int index);
+    void cleanAccessory(int index);
     void changeArmor(Armor armorNew, int index);//сменить броню
-    Armor selectArmor(int id);//выбрать броню//возможно должно быть не здесь
-    void changeChars(Chars chars);//повышение характеристик
-    void changeWeapon(Weapon weaponNew, int index);//выбрать оружие//возможно должно быть не здесь
-    void changeAccessory(Accessory acessoryNew, int index);//выбрать аксессуар//возможно должно быть не здесь
+    void changeWeapon(Weapon weaponNew, int index);//выбрать оружие
+    void changeAccessory(Accessory acessoryNew, int index);//выбрать аксессуар
 };
 
 #endif // PLAYER_H

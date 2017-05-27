@@ -2,7 +2,7 @@
 
 int Level::getCurrentRoomID()
 {
-    return currentRoom.getX() * 4 + currentRoom.getY();
+    return currentRoom.getX() * LVL_SIZE + currentRoom.getY();
 }
 
 bool Level::isFree(int x, int y)
@@ -35,28 +35,28 @@ Room Level::changeCurrentRoom(int dRow, int dColumn)
 void Level::eller()
 {
     Dice::init();
-    int* marker = new int [4];
-    for (int i = 0; i < 4; i++)
+    int* marker = new int [LVL_SIZE];
+    for (int i = 0; i < LVL_SIZE; i++)
         marker[i] = i;
-    for (int i = 0; i < 4; i++)
-        for (int j = 0; j < 4; j++)
+    for (int i = 0; i < LVL_SIZE; i++)
+        for (int j = 0; j < LVL_SIZE; j++)
             rooms[i][j].clean();
-    for (int i = 0; i < 4; i++)
-        for (int j = 0; j < 3; j++)
+    for (int i = 0; i < LVL_SIZE; i++)
+        for (int j = 0; j < LVL_SIZE - 1; j++)
         {
             rooms[i][j].doorRight();
             rooms[i][j + 1].doorLeft();
         }
-    for (int i = 0; i < 3; i++)
-        for (int j = 0; j < 4; j++)
+    for (int i = 0; i < LVL_SIZE - 1; i++)
+        for (int j = 0; j < LVL_SIZE; j++)
         {
             rooms[i][j].doorDown();
             rooms[i + 1][j].doorUp();
         }
-    int id = 4;
-    for (int i = 0; i < 3; i++)
+    int id = LVL_SIZE;
+    for (int i = 0; i < LVL_SIZE - 1; i++)
     {
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < LVL_SIZE - 1; j++)
         {
             if (marker[j] == marker[j + 1])
             {
@@ -64,7 +64,7 @@ void Level::eller()
                 rooms[i][j + 1].wallLeft();
             }
         }
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < LVL_SIZE - 1; j++)
         {
             if (Dice::random(1))
             {
@@ -74,7 +74,7 @@ void Level::eller()
             else
                 marker[j + 1] = marker[j];
         }
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < LVL_SIZE; j++)
         {
             if (Dice::random(1) && ((marker[j] == marker[j + 1] && !j) || (marker[j] == marker[j - 1] && j)))
             {
@@ -84,23 +84,68 @@ void Level::eller()
             }
         }
     }
-    for (int j = 0; j < 3; j++)
+    for (int j = 0; j < LVL_SIZE - 1; j++)
     {
         if (marker[j] == marker[j + 1])
         {
-            rooms[3][j].wallRight();
-            rooms[3][j + 1].wallLeft();
+            rooms[LVL_SIZE - 1][j].wallRight();
+            rooms[LVL_SIZE - 1][j + 1].wallLeft();
         }
     }
-    rooms[3][3].wayin();
-    rooms[0][0].wayout();
+    int i, j, k;
+    bool ready = false;
+    while(!ready)
+    {
+        i = Dice::random(LVL_SIZE - 1);
+        j = Dice::random(LVL_SIZE - 1);
+        k = Dice::random(3);
+        switch (k)
+        {
+        case 0:
+            ready = rooms[i][j].wayinUp();
+            break;
+        case 1:
+            ready = rooms[i][j].wayinRight();
+            break;
+        case 2:
+            ready = rooms[i][j].wayinDown();
+            break;
+        case 3:
+            ready = rooms[i][j].wayinLeft();
+            break;
+        }
+    }
+    ready = false;
+    while(!ready)
+    {
+        i = Dice::random(LVL_SIZE - 1);
+        j = Dice::random(LVL_SIZE - 1);
+        k = Dice::random(3);
+        switch (k)
+        {
+        case 0:
+            ready = rooms[i][j].wayoutUp();
+            break;
+        case 1:
+            ready = rooms[i][j].wayoutRight();
+            break;
+        case 2:
+            ready = rooms[i][j].wayoutDown();
+            break;
+        case 3:
+            ready = rooms[i][j].wayoutLeft();
+            break;
+        }
+    }
+//    rooms[LVL_SIZE - 1][LVL_SIZE - 1].wayinDown();
+//    rooms[0][0].wayoutUp();
     delete []marker;
 }
 
 void Level::lvl0()
 {
     rooms[0][0].clean();
-    rooms[0][0].wayin();
+    rooms[0][0].wayinDown();
     currentRoom.setCoords(0, 0);
 }
 
@@ -125,10 +170,10 @@ void Level::generateLvl(Coordinates currentRoom)
     this->currentRoom = currentRoom;
 }
 
-void Level::setLvl(Room rooms[4][4], int interval, Coordinates currentRoom)
+void Level::setLvl(Room rooms[LVL_SIZE][LVL_SIZE], int interval, Coordinates currentRoom)
 {
-    for (int i = 0; i < 4; i++)
-        for (int j = 0; j < 4; j++)
+    for (int i = 0; i < LVL_SIZE; i++)
+        for (int j = 0; j < LVL_SIZE; j++)
             this->rooms[i][j] = rooms[i][j];
     this->interval = interval;
     this->currentRoom = currentRoom;
