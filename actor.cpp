@@ -1,5 +1,15 @@
 #include "actor.h"
 
+void Actor::setBattleMode(BattleMod mod)
+{
+    battleMod = mod;
+}
+
+BattleMod Actor::getBattleMod()
+{
+    return battleMod;
+}
+
 void Actor::cleanBag()
 {
     bag.accessories.removeAll();
@@ -60,6 +70,13 @@ void Actor::lvl0()
     charsBattle.stamina = charsCurrent.stamina;
 }
 
+Actor::~Actor()
+{
+    bag.accessories.removeAll();
+    bag.armors.removeAll();
+    bag.weapons.removeAll();
+}
+
 Actor::Actor()
 {
     memoryFragments = 0;
@@ -82,6 +99,23 @@ Actor::Actor()
 Chars Actor::getMaxChars()
 {
     return charsMax;
+}
+
+void Actor::resetBattleChars()
+{
+    dead = false;
+    charsBattle.health = charsCurrent.health;
+    charsBattle.stamina = charsCurrent.stamina;
+}
+
+void Actor::resetStamina()
+{
+    charsBattle.stamina = charsCurrent.stamina;
+}
+
+CharsBattle Actor::getBattleChars()
+{
+    return charsBattle;
 }
 
 Chars Actor::getCurrentChars()
@@ -176,9 +210,16 @@ int Actor::getDex()
     return charsCurrent.dexterity;
 }
 
+int Actor::getMedKitCount()
+{
+    return medkit.getCount();
+}
+
 void Actor::useMedKit()
 {
-    charsBattle.health += medkit.useMedKit();
+    if (!medkit.getCount())
+        return;
+    charsBattle.health += charsCurrent.health / medkit.useMedKit();
     if (charsBattle.health > charsMax.health)
         charsBattle.health = charsMax.health;
 }
@@ -219,6 +260,9 @@ bool Actor::isParry(int enemyDex)
 
 DamageTypes Actor::makeDamage(int weapon)
 {
+    DamageTypes result = DamageTypes(0, 0, 0, 0, 0, 0);
+    if (charsBattle.stamina <= 0)
+        return result;
     if (weapon > 1)
         weapon = 1;
     if (weapon < 0)
@@ -227,11 +271,12 @@ DamageTypes Actor::makeDamage(int weapon)
         weapon = 1;
     if (is2handed() == -1)
         weapon = 0;
-    DamageTypes result;
     int currentStrenght = charsCurrent.strenght;
     for (int i = 0; i < 4; i++)
     {
-        if (equip.accessory[i].getType() == AccessoryType::attack && !equip.accessory[i].isBroken())
+        if (equip.accessory[i].getType() == AccessoryType::attack
+                && !equip.accessory[i].isBroken()
+                && equip.accessory[i].getId())
         {
             result.add(equip.accessory[i].getDamageTypes());
             equip.accessory[i].lowDurability();
@@ -287,24 +332,26 @@ int Actor::calculateDamage(DamageTypes damage)
 {
     for (int i = 0; i < 4; i++)
     {
-        if (!equip.armor[i].isBroken())
+        if (!equip.armor[i].isBroken() && equip.armor[i].getId())
         {
             damage.substract(equip.armor[i].getDamageTypes());
             equip.armor[i].lowDurability();
         }
-        if (equip.accessory[i].getType() == AccessoryType::defence && !equip.accessory[i].isBroken())
+        if (equip.accessory[i].getType() == AccessoryType::defence
+                && !equip.accessory[i].isBroken()
+                && equip.accessory[i].getId())
         {
             damage.substract(equip.accessory[i].getDamageTypes());
             equip.accessory[i].lowDurability();
         }
     }
-    if (battleMod == BattleMod::Protection)
+    if (battleMod == BattleMod::Protection && charsBattle.stamina <= 0)
     {
         for (int i = 0; i < 2; i++)
         {
             if (equip.twoHanded[i] && is2handed())
             {
-                if (!equip.weapon[i].isBroken())
+                if (!equip.weapon[i].isBroken() && equip.weapon[i].getId())
                 {
                     damage.substract(equip.weapon[i].getDamageTypes());
                     equip.weapon[i].lowDurability();
@@ -314,7 +361,7 @@ int Actor::calculateDamage(DamageTypes damage)
             }
             else
             {
-                if (!equip.weapon[i].isBroken())
+                if (!equip.weapon[i].isBroken() && equip.weapon[i].getId())
                 {
                     damage.substract(equip.weapon[i].getDamageTypes());
                     equip.weapon[i].lowDurability();

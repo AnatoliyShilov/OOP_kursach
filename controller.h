@@ -8,6 +8,7 @@
 #include "inventorycontroller.h"
 #include "traidecontroller.h"
 #include "lvlupcontroller.h"
+#include "battlecontroller.h"
 
 class Controller
 {
@@ -25,6 +26,7 @@ class Controller
     LvlUPController lvlUpMenu;
     InventoryController inventoryMenu;
     TraideController traideMenu;
+    BattleController battleMenu;
 public:
     Controller();
     ~Controller();
@@ -37,10 +39,6 @@ private:
     void gameTick();
     int menuMain();
     int menuPause();
-
-    /////////////////
-    int menuBattle();
-    //////////////////
 };
 
 #endif // CONTROLLER_H

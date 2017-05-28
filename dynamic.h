@@ -76,7 +76,10 @@ void List<Data>::remove(Link<Data> *link)
     if (link == begin)
     {
         begin = begin->Next;
-        begin->Prev = NULL;
+        if (!begin)
+            end = begin;
+        else
+            begin->Prev = NULL;
     }
     else
         if (link == end)

@@ -1,5 +1,10 @@
 #include "allnpc.h"
 
+int AllNPC::getCount()
+{
+    return npcs.size();
+}
+
 NPC *AllNPC::getNPC(int id)
 {
     for (Link<NPC> *temp = npcs.getBegin(); temp; temp = temp->Next)

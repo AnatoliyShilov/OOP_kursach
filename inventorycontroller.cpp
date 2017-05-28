@@ -15,7 +15,8 @@ int InventoryController::playerInfo(int key)
                "\t[] Сила                         "<<setw(10)<<info.charsMax.strenght<<" ( "<<setw(5)<<showpos<<info.charsCurrent.strenght - info.charsMax.strenght<<noshowpos<<" )    []\n"<<
                "\t[] Ловкость                     "<<setw(10)<<info.charsMax.dexterity<<" ( "<<setw(5)<<showpos<<info.charsCurrent.dexterity - info.charsMax.dexterity<<noshowpos<<" )    []\n"<<
                "\t[] Удача                        "<<setw(10)<<info.charsMax.luck<<" ( "<<setw(5)<<showpos<<info.charsCurrent.luck - info.charsMax.luck<<noshowpos<<" )    []\n"<<
-               "\t[][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\n";
+               "\t[][][][][][][][][][][][][][][][][][][][][][][][][][][][][]\n"
+               "\t+ Аптечки: "<<player->getMedKitCount()<<"\n";
     return key;
 }
 
@@ -34,7 +35,8 @@ int InventoryController::equipments(int key)
                "   \\----------------------/                         |                           \n";
     for (int i = 0; i < 2; i++, std::cout<<"\n")
         if (equip.weapon[i].getId())
-            std::cout<<"\t"<<indicator[i][0]<<" "<<equip.weapon[i].getInfo().item.name<<" "<<indicator[i][1]<<"\t";
+            std::cout<<"\t"<<indicator[i][0]<<" "<<equip.weapon[i].getInfo().item.name<<" "<<indicator[i][1]<<
+                       "   Прочность: "<<equip.weapon[i].getInfo().item.durability<<"\t";
         else
             std::cout<<"\t"<<indicator[i][0]<<" "<<"Пусто"<<" "<<indicator[i][1]<<"\t";
     std::cout<<"[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]"<<
@@ -44,7 +46,8 @@ int InventoryController::equipments(int key)
     key = 2;
     for (int i = 0; i < 4; i++, std::cout<<"\n")
         if (equip.armor[i].getId())
-            std::cout<<"\t"<<indicator[i + key][0]<<" "<<equip.armor[i].getInfo().item.name<<" "<<indicator[i + key][1]<<"\t";
+            std::cout<<"\t"<<indicator[i + key][0]<<" "<<equip.armor[i].getInfo().item.name<<" "<<indicator[i + key][1]<<
+                       "   Прочность: "<<equip.armor[i].getInfo().item.durability<<"\t";
         else
             std::cout<<"\t"<<indicator[i + key][0]<<" "<<"Пусто"<<" "<<indicator[i + key][1]<<"\t";
     std::cout<<"[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]"<<
@@ -54,7 +57,8 @@ int InventoryController::equipments(int key)
     key += 4;
     for (int i = 0; i < 4; i++, std::cout<<"\n")
         if (equip.accessory[i].getId())
-            std::cout<<"\t"<<indicator[i + key][0]<<" "<<equip.accessory[i].getInfo().item.name<<" "<<indicator[i + key][1]<<"\t";
+            std::cout<<"\t"<<indicator[i + key][0]<<" "<<equip.accessory[i].getInfo().item.name<<" "<<indicator[i + key][1]<<
+                       "   Прочность: "<<equip.accessory[i].getInfo().item.durability<<"\t";
         else
             std::cout<<"\t"<<indicator[i + key][0]<<" "<<"Пусто"<<" "<<indicator[i + key][1]<<"\t";
     std::cout<<"[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]";
@@ -152,7 +156,7 @@ Armor InventoryController::selectArmor(ArmorType type)
         for (int i = 0; endDisp != NULL && i < 5; i++, count++)
         {
             info = endDisp->data.getInfo();
-            std::cout<<indicator[i]<<" "<<setw(48)<<info.item.name<<" [] "<<setw(10)<<info.item.durability<<" [] "<<setw(8)<<info.weight<<" []";
+            std::cout<<indicator[i]<<" "<<setw(48)<<info.item.name<<" "<<indicator[i]<<" "<<setw(10)<<info.item.durability<<" "<<indicator[i]<<" "<<setw(8)<<info.weight<<" []";
             endDisp = endDisp->Next;
         }
         count--;
@@ -213,7 +217,7 @@ Accessory InventoryController::selectAccessory()
         for (int i = 0; endDisp && i < 5; i++, count++)
         {
             info = endDisp->data.getInfo();
-            std::cout<<indicator[i]<<" "<<setw(48)<<info.item.name<<" [] "<<setw(22)<<info.item.durability<<" []";
+            std::cout<<indicator[i]<<" "<<setw(48)<<info.item.name<<" "<<indicator[i]<<" "<<setw(22)<<info.item.durability<<" []";
             endDisp = endDisp->Next;
         }
         count--;
@@ -275,7 +279,7 @@ Weapon InventoryController::selectWeapon()
         for (int i = 0; endDisp && i < 5; i++, count++)
         {
             info = endDisp->data.getInfo();
-            std::cout<<indicator[i]<<" "<<setw(48)<<info.item.name<<" [] "<<setw(10)<<info.item.durability<<" [] "<<setw(8)<<info.weight<<" []";
+            std::cout<<indicator[i]<<" "<<setw(48)<<info.item.name<<" "<<indicator[i]<<" "<<setw(10)<<info.item.durability<<" "<<indicator[i]<<" "<<setw(8)<<info.weight<<" []";
             endDisp = endDisp->Next;
         }
         count--;

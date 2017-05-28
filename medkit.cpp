@@ -1,10 +1,15 @@
 #include "medkit.h"
 
+int MedKit::getCount()
+{
+    return count;
+}
+
 MedKit::MedKit()
 {
-    MedKit::count = 0;
-    MedKit::countMax = 0;
-    MedKit::effectivity = 0;
+    MedKit::count = 10;
+    MedKit::countMax = 10;
+    MedKit::effectivity = 3;
 }
 
 void MedKit::resetMedKitCount()
@@ -13,8 +18,6 @@ void MedKit::resetMedKitCount()
 }
 
 int MedKit::useMedKit(){
-    if (!count)
-        return 0;
     count--;
     return effectivity;
 }

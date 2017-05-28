@@ -11,6 +11,7 @@ public:
     MedKit();
     void resetMedKitCount();
     int useMedKit();
+    int getCount();
 };
 
 #endif // MEDKIT_H

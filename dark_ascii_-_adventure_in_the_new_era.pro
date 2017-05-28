@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     traidecontroller.cpp \
     inventorycontroller.cpp \
     lvlupcontroller.cpp \
-    abstractcontroller.cpp
+    abstractcontroller.cpp \
+    battlecontroller.cpp
 
 HEADERS += \
     item.h \
@@ -51,4 +52,5 @@ HEADERS += \
     traidecontroller.h \
     inventorycontroller.h \
     lvlupcontroller.h \
-    abstractcontroller.h
+    abstractcontroller.h \
+    battlecontroller.h

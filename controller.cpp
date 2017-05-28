@@ -65,6 +65,7 @@ void Controller::gameTick()
                     player.save("pl.sav");
                     lvlUpMenu.start();
                     setCurrentLvl();
+                    player.save("pl.sav");
                 }
                 else
                     if (playerPos.equals(chestPos) &&
@@ -93,7 +94,6 @@ void Controller::gameTick()
                     }
                     else
                         inventoryMenu.start();
-            //TODO
         }
         switch (lvl.getTypeCell(playerPos.getX(), playerPos.getY()))
         {
@@ -171,9 +171,19 @@ void Controller::gameTick()
         }
         default:break;
         }
-        //TODO
+        if (currentlvl && lvl.getCurrentRoomID())
+            battleMenu.start();
+        if (player.isDead())
+        {
+            player.resetBattleChars();
+            player.addFragments(-player.getFragments());
+            player.save("pl.sav");
+            lvl.lvl0();
+            currentlvl = 0;
+            playerPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
+            Menu::dead();
+        }
     }
-    system("pause");
 }
 
 void Controller::newGame()
@@ -190,6 +200,7 @@ void Controller::newGame()
 
 void Controller::continueGame()
 {
+    player.resetBattleChars();
     Controller::gameTick();
 }
 
@@ -221,7 +232,7 @@ int Controller::menuMain()
         result = Menu::displayVertical("Главное меню", optionsName, 3, NULL, NULL);
         if (result == EXIT_CODE || result == 2)
         {
-            if (Menu::askWindow("Вы точно хотите выйти?", "Все не сохраненные данные будут потеряны."))
+            if (Menu::askWindow("Вы точно хотите выйти?", "Все несохраненные данные будут потеряны."))
                 return EXIT_CODE;
             else
                 continue;
@@ -265,4 +276,6 @@ Controller::Controller()
     traideMenu.setPayer(player);
     inventoryMenu.setPayer(player);
     lvlUpMenu.setPayer(player);
+    battleMenu.setPayer(player);
+    battleMenu.setNPCs(allNPC);
 }

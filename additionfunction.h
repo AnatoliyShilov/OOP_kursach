@@ -173,6 +173,30 @@ public:
 class Menu
 {
 public:
+    void static dead()
+    {
+        system("cls");
+        std::cout<<"              ==    ==          OOOO         OO      OO                         "
+                   "               \\\\  //         OO    OO       UU      UU                         "
+                   "                \\\\//         OO      OO      UU      UU                         "
+                   "                 II          OO      OO      UU      UU                         "
+                   "                 II           OO    OO        UU    UU                          "
+                   "               /OOOO\\           OOOO            UUUU                            "
+
+                   "                                                                                "
+
+                   "       IIDDDDD         IIEEEEE          AA           IIDDDDD                    "
+                   "       II     DD       II    E         //\\\\          II     DD                  "
+                   "       II      DD      II==]          //  \\\\         II      DD                 "
+                   "       II      DD      II==]         //xxxx\\\\        II      DD                 "
+                   "       II     DD       II    E      //      \\\\       II     DD                  "
+                   "       IIDDDDD         IIEEEEE     /AA      AA\\      IIDDDDD                    \n\n";
+        std::cout<<"\n\t\t\tДля продолжения нажмите ENTER";
+        while (true)
+            if (Menu::keyDecoder(getch()) == ENTER)
+                return;
+    }
+
     void static logo()
     {
         system("cls");
@@ -203,7 +227,7 @@ public:
         {
             system("cls");
             std::cout<<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
-            std::cout<<"\t\tX   "<<title<<"   X\n\n\t\tX   "<<info<<"   X\n\n\t\t   ";
+            std::cout<<"\t\t\tX   "<<title<<"   X\n\n\t\t\t\tX\n\t"<<info<<"\n\t\t\t\tX\n\n\t\t   ";
             std::cout<<"( "<<indicator[0]<<") ДА\t( "<<indicator[1]<<") НЕТ   \n";
             std::cout<<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\t";
             key = keyDecoder(getch());
@@ -229,9 +253,12 @@ public:
         system("cls");
         std::cout
                 <<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
-                <<"\t\tX   "<<title<<"   X\n\n\t\tX   "<<info<<"   X\n\n"
-                <<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\t";
-        system("pause");
+                <<"\t\t\tX   "<<title<<"   X\n\n\t\t\t\tX\n\t"<<info<<"\n\t\t\t\tX\n\n"
+                <<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
+                <<"\t\t\tДля продолжения нажмите ENTER";
+        while (true)
+            if (Menu::keyDecoder(getch()) == ENTER)
+                return;
     }
 
     inline int static displayVertical(const char* title, const char *nameOptions[], int count, void (*addInfo)(pVoid), pVoid arg)

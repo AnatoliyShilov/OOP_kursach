@@ -2,6 +2,11 @@
 template <class T>
 Link<T> *TraideController::select(Link<T> *begDisp, bool forsell)
 {
+    if (!begDisp)
+    {
+        Menu::info("", "\t\t\tПусто");
+        return NULL;
+    }
     Link<T> *endDisp = begDisp;
     int key;
     int select = 0, count;
@@ -21,7 +26,7 @@ Link<T> *TraideController::select(Link<T> *begDisp, bool forsell)
         for (int i = 0; endDisp && i < 5; i++, count++)
         {
             info = endDisp->data.getInfo().item;
-            std::cout<<indicator[i]<<" "<<setw(48)<<info.name<<" [] "<<setw(10)<<info.durability<<" [] ";
+            std::cout<<indicator[i]<<" "<<setw(48)<<info.name<<" "<<indicator[i]<<" "<<setw(10)<<info.durability<<" "<<indicator[i]<<" ";
             if (forsell)
                 std::cout<<setw(8)<<info.cost / 100<<" []";
             else
@@ -67,85 +72,79 @@ Link<T> *TraideController::select(Link<T> *begDisp, bool forsell)
 
 void TraideController::accessories(Actor *seller)
 {
-    if (seller->openBag()->accessories.isEmpty())
-    {
-        std::cout<<"\t\t\tПусто\n";
-        return;
-    }
     Link<Accessory> *ac;
-    ac = select(seller->openBag()->accessories.getBegin(), seller == player);
-    if (!ac)
-        return;
-    if (seller == player)
+    while (true)
     {
-        player->addFragments(ac->data.getCost() / 100);
-        player->openBag()->accessories.remove(ac);
-    }
-    else
-    {
-        if (player->getFragments() - ac->data.getCost() < 0)
-        {
-            Menu::info("","Недостаточно денег");
+        ac = select(seller->openBag()->accessories.getBegin(), seller == player);
+        if (!ac)
             return;
+        if (seller == player)
+        {
+            player->addFragments(ac->data.getCost() / 100);
+            player->openBag()->accessories.remove(ac);
         }
-        player->addFragments(-ac->data.getCost());
-        player->add(ac->data);
+        else
+        {
+            if (player->getFragments() - ac->data.getCost() < 0)
+            {
+                Menu::info("","\t\t\tНедостаточно денег");
+                return;
+            }
+            player->addFragments(-ac->data.getCost());
+            player->add(ac->data);
+        }
     }
 }
 
 void TraideController::armors(Actor *seller)
 {
-    if (seller->openBag()->armors.isEmpty())
-    {
-        std::cout<<"\t\t\tПусто\n";
-        return;
-    }
     Link<Armor> *ar;
-    ar = select(seller->openBag()->armors.getBegin(), seller == player);
-    if (!ar)
-        return;
-    if (seller == player)
+    while (true)
     {
-        player->addFragments(ar->data.getCost() / 100);
-        player->openBag()->armors.remove(ar);
-    }
-    else
-    {
-        if (player->getFragments() - ar->data.getCost() < 0)
-        {
-            Menu::info("","Недостаточно денег");
+        ar = select(seller->openBag()->armors.getBegin(), seller == player);
+        if (!ar)
             return;
+        if (seller == player)
+        {
+            player->addFragments(ar->data.getCost() / 100);
+            player->openBag()->armors.remove(ar);
         }
-        player->addFragments(-ar->data.getCost());
-        player->add(ar->data);
+        else
+        {
+            if (player->getFragments() - ar->data.getCost() < 0)
+            {
+                Menu::info("","\t\t\tНедостаточно денег");
+                return;
+            }
+            player->addFragments(-ar->data.getCost());
+            player->add(ar->data);
+        }
     }
 }
 
 void TraideController::weapons(Actor *seller)
 {
-    if (seller->openBag()->weapons.isEmpty())
-    {
-        std::cout<<"\t\t\tПусто\n";
-        return;
-    }
     Link<Weapon> *w;
-    w = select(seller->openBag()->weapons.getBegin(), seller == player);
-    if (!w)
-        return;
-    if (seller == player)
+    while(true)
     {
-        player->addFragments(w->data.getCost() / 100);
-        player->openBag()->weapons.remove(w);
-    }
-    else
-    {
-        if (player->getFragments() - w->data.getCost() < 0)
-        {
-            Menu::info("","Недостаточно денег");
+        w = select(seller->openBag()->weapons.getBegin(), seller == player);
+        if (!w)
             return;
+        if (seller == player)
+        {
+            player->addFragments(w->data.getCost() / 100);
+            player->openBag()->weapons.remove(w);
         }
-        player->addFragments(-w->data.getCost());
-        player->add(w->data);
+        else
+        {
+            if (player->getFragments() - w->data.getCost() < 0)
+            {
+                Menu::info("","\t\t\tНедостаточно денег");
+                return;
+            }
+            player->addFragments(-w->data.getCost());
+            player->add(w->data);
+        }
     }
 }
 

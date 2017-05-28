@@ -78,7 +78,7 @@ void LvlUPController::lvlUPMenu()
     charsDX.strenght = dxChars[2];
     charsDX.dexterity = dxChars[3];
     player->changeLvl(charsDX, dxLvl);
-    Menu::info("Уровень повышен!", "Вы стали сильнее.");
+    Menu::info("Уровень повышен!", "\t\tВы стали сильнее.");
 }
 
 int LvlUPController::getTravelTo()
@@ -120,7 +120,7 @@ void LvlUPController::fastTravelMenu()
 int LvlUPController::start()
 {
     player->rest();
-    Menu::info("Персонаж отдохнул.", "Неведомая сила укрепила ваш дух и тело.");
+    Menu::info("Персонаж отдохнул.", "\tНеведомая сила укрепила ваш дух и тело.");
     const char *optionsName[] =
     {
         "Быстрое перемещение",

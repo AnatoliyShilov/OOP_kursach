@@ -9,6 +9,7 @@ class AllNPC
 public:
     AllNPC();
     NPC *getNPC(int id);
+    int getCount();
     void display();///////////////
     void save(const char *file);
     int load(const char *file, AllItems *allItems);

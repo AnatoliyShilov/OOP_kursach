@@ -207,8 +207,9 @@ void Player::lvl0()
 
 void Player::rest()
 {
-    updateCharsCurrent();
+    medkit.resetMedKitCount();
     regenDurability();
+    resetBattleChars();
 }
 
 Player::Player()
