@@ -137,8 +137,6 @@ void Level::eller()
             break;
         }
     }
-//    rooms[LVL_SIZE - 1][LVL_SIZE - 1].wayinDown();
-//    rooms[0][0].wayoutUp();
     delete []marker;
 }
 

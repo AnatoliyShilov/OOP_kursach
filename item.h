@@ -5,26 +5,29 @@
 
 struct ItemInfo
 {
-    int id;//сохранить
-    char name[50];//сохранить
-    int maxDurability;//сохранить
-    int durability;//сохранить
-    DamageTypesInfo damageT;//сохранить
+    int id;
+    char name[50];
+    int cost;
+    int maxDurability;
+    int durability;
+    DamageTypesInfo damageT;
 };
 
 class Item
 {
-    int id;//сохранить
-    char name[50];//сохранить
-    int maxDurability;//сохранить
-    int durability;//сохранить
-    DamageTypes damageT;//сохранить
+    int id;
+    char name[50];
+    int cost;
+    int maxDurability;
+    int durability;
+    DamageTypes damageT;
 public:
     Item();
     ItemInfo getInfo();
     void setInfo(ItemInfo info);
     bool isBroken();
     int getId();
+    int getCost();
     void lowDurability();
     void resetDurability();
     DamageTypes getDamageTypes();

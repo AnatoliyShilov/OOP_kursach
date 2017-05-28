@@ -52,9 +52,9 @@ public:
     const char *chest[3];
     virtual void init()
     {
-        chest[0] = "/o\\";
+        chest[0] = "ß+R";
         chest[1] = "|||";
-        chest[2] = "===";
+        chest[2] = "---";
         fire[0] = " **";
         fire[1] = "** ";
         fire[2] = "/|\\";
@@ -100,7 +100,7 @@ public:
         return 0;
     }
 
-    void static printRoom(int currentlvl, Cell** cells, int roomSize, Coordinates Poss[3], Sprites s, int roomID)
+    void static printRoom(int currentlvl, Cell** cells, int roomSize, Coordinates Poss[4], Sprites s, int roomID, int chestRoomID)
     {
         system("cls");
         char **info = new char* [roomSize];
@@ -152,6 +152,8 @@ public:
                         std::cout<<char(8)<<char(8)<<char(8)<<s.traider[k];
                     if (Poss[2].getX() == j && Poss[2].getY() == i && !(currentlvl % 5) && !roomID)
                         std::cout<<char(8)<<char(8)<<char(8)<<s.fire[k];
+                    if (Poss[3].getX() == j && Poss[3].getY() == i && roomID == chestRoomID)
+                        std::cout<<char(8)<<char(8)<<char(8)<<s.chest[k];
                     if (Poss[0].getX() == j && Poss[0].getY() == i)
                         std::cout<<char(8)<<char(8)<<char(8)<<s.player[k];
                 }

@@ -9,6 +9,7 @@
 #include <ctime>
 #include <stdlib.h>
 #include "additionfunction.h"
+#include <bag.h>
 
 enum BattleMod
 {
@@ -36,9 +37,10 @@ struct Equipment
 class Actor
 {
 protected:
-    int memoryFragments;//деньги//сохранить
-    Equipment equip;//экипировка//сохранить
-    Chars charsMax;//максимальные характеристики//сохранить
+    Bag bag;//сумка
+    int memoryFragments;//деньги
+    Equipment equip;//экипировка
+    Chars charsMax;//максимальные характеристики
     Chars charsCurrent;//характеристики текущие (учитывают нанесенные повреждения, бонусы и штрафы)
     CharsBattle charsBattle;//изменяемые во время битвы параметры
     MedKit medkit;//лечилки
@@ -54,6 +56,11 @@ protected:
                     //-1 - оружие 1 в двуручном режиме
 public:
     Actor();
+    void add(Accessory ac);
+    void add(Armor ar);
+    void add(Weapon w);
+    void cleanBag();
+    Bag *openBag();//просмотр сумки
     Equipment getEquipment();
     void addFragments(int fragments);
     Chars getMaxChars();

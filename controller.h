@@ -15,6 +15,7 @@ class Controller
     Coordinates playerPos;
     Coordinates traiderPos;
     Coordinates firePos;
+    Coordinates chestPos;
     AllNPC allNPC;//TODO allItems allNPC не грузятся
     AllItems allItems;
     void (Controller::*fMain[2])();

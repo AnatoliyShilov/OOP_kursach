@@ -1,5 +1,32 @@
 #include "actor.h"
 
+void Actor::cleanBag()
+{
+    bag.accessories.removeAll();
+    bag.armors.removeAll();
+    bag.weapons.removeAll();
+}
+
+void Actor::add(Accessory ac)
+{
+    bag.accessories.add(ac);
+}
+
+void Actor::add(Armor ar)
+{
+    bag.armors.add(ar);
+}
+
+void Actor::add(Weapon w)
+{
+    bag.weapons.add(w);
+}
+
+Bag* Actor::openBag()
+{
+    return &bag;
+}
+
 Equipment Actor::getEquipment()
 {
     return this->equip;

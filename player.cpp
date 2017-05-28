@@ -62,15 +62,15 @@ void Player::save(const char *file)
         out<<equip.weapon[i].getId()<<" ";
     out<<"\n";
     if (!bag.accessories.isEmpty())
-        for (Link<Accessory>* temp = bag.accessories.getBegin(); temp != NULL; temp = temp->Next)
+        for (Link<Accessory>* temp = bag.accessories.getBegin(); temp; temp = temp->Next)
             out<<temp->data.getId()<<" ";
     out<<"#\n";
     if (!bag.armors.isEmpty())
-        for (Link<Armor>* temp = bag.armors.getBegin(); temp != NULL; temp = temp->Next)
+        for (Link<Armor>* temp = bag.armors.getBegin(); temp; temp = temp->Next)
             out<<temp->data.getId()<<" ";
     out<<"#\n";
     if (!bag.weapons.isEmpty())
-        for (Link<Weapon>* temp = bag.weapons.getBegin(); temp != NULL; temp = temp->Next)
+        for (Link<Weapon>* temp = bag.weapons.getBegin(); temp; temp = temp->Next)
             out<<temp->data.getId()<<" ";
     out<<"#\n";
     out.close();
@@ -216,15 +216,15 @@ Player::Player()
 
 }
 
-void Player::loot(Bag bag)
+void Player::loot(Bag *bag)
 {
-    for (Link<Accessory> *acc = bag.accessories.getBegin(); acc; acc = acc->Next)
+    for (Link<Accessory> *acc = bag->accessories.getBegin(); acc; acc = acc->Next)
         if (charsCurrent.luck > Dice::roll())
             this->bag.accessories.add(acc->data);
-    for (Link<Weapon> *wea = bag.weapons.getBegin(); wea; wea = wea->Next)
+    for (Link<Weapon> *wea = bag->weapons.getBegin(); wea; wea = wea->Next)
         if (charsCurrent.luck > Dice::roll())
             this->bag.weapons.add(wea->data);
-    for (Link<Armor> *arm = bag.armors.getBegin(); arm; arm = arm->Next)
+    for (Link<Armor> *arm = bag->armors.getBegin(); arm; arm = arm->Next)
         if (charsCurrent.luck > Dice::roll())
             this->bag.armors.add(arm->data);
 }
@@ -301,9 +301,4 @@ void Player::changeArmor(Armor armorNew, int index)
         }
     equip.armor[index] = armorNew;
     updateCharsCurrent();
-}
-
-Bag* Player::openBag()
-{
-    return &bag;
 }

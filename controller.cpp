@@ -15,18 +15,24 @@ void Controller::setCurrentLvl()
 void Controller::gameTick()
 {
     int key;
-    Coordinates Poss[3];
+    Coordinates Poss[4];
     Poss[1] = traiderPos;
     Poss[2] = firePos;
+    Poss[3] = chestPos;
+    Bag chest;
+    int chestRoomId = 1;
+    Dice::init();
     while (true)
     {
+
         Poss[0] = playerPos;
         PrintFuncs::printRoom(currentlvl,
                               lvl.getCurrentRoom().getCells(),
                               ROOM_SIZE,
                               Poss,
                               sprites,
-                              lvl.getCurrentRoomID());
+                              lvl.getCurrentRoomID(),
+                              chestRoomId);
         key = getch();
         key = Menu::keyDecoder(key);
         if (key == EXIT_CODE)
@@ -52,7 +58,6 @@ void Controller::gameTick()
                 traideMenu.start();
             }
             else
-            {
                 if (playerPos.equals(firePos) &&
                         (lvl.getCurrentRoomID() == 0) &&
                         !(currentlvl % 5))
@@ -62,16 +67,57 @@ void Controller::gameTick()
                     setCurrentLvl();
                 }
                 else
-                {
-                    inventoryMenu.start();
-                }
-            }
+                    if (playerPos.equals(chestPos) &&
+                            (lvl.getCurrentRoomID() == chestRoomId))
+                    {
+                        if (!chest.accessories.isEmpty())
+                        {
+                            Menu::info("Осмотрев сундук вы получили:", chest.accessories.getBegin()->data.getInfo().item.name);
+                            player.add(chest.accessories.getBegin()->data);
+                            chest.accessories.removeAll();
+                        }
+                        else
+                            if (!chest.armors.isEmpty())
+                            {
+                                Menu::info("Осмотрев сундук вы получили:", chest.armors.getBegin()->data.getInfo().item.name);
+                                player.add(chest.armors.getBegin()->data);
+                                chest.armors.removeAll();
+                            }
+                            else
+                                if (!chest.weapons.isEmpty())
+                                {
+                                    Menu::info("Осмотрев сундук вы получили:", chest.weapons.getBegin()->data.getInfo().item.name);
+                                    player.add(chest.weapons.getBegin()->data);
+                                    chest.weapons.removeAll();
+                                }
+                    }
+                    else
+                        inventoryMenu.start();
             //TODO
         }
         switch (lvl.getTypeCell(playerPos.getX(), playerPos.getY()))
         {
         case WAYIN:
         {
+            chestRoomId = Dice::random(23) + 1;
+            switch (Dice::random(2))
+            {
+            case 0:
+            {
+                chest.accessories.add(allItems.accessories.get(Dice::random(allItems.accessories.size() - 1)));
+                break;
+            }
+            case 1:
+            {
+                chest.armors.add(allItems.armors.get(Dice::random(allItems.armors.size() - 1)));
+                break;
+            }
+            case 2:
+            {
+                chest.weapons.add(allItems.weapons.get(Dice::random(allItems.weapons.size() - 1)));
+                break;
+            }
+            }
             currentlvl++;
             lvl.generateLvl(Coordinates(0, 0));
             playerPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
@@ -188,6 +234,9 @@ void Controller::Run()
 {
     if (allItems.load("it.sav") == ERROR_CODE)
         return;
+    if (allNPC.load("npc.sav", &allItems) == ERROR_CODE)
+        return;
+    traideMenu.setTraider(allNPC.getNPC(1));
     player.load("pl.sav", &allItems);
     Menu::logo();
     system("pause");
@@ -198,6 +247,7 @@ Controller::~Controller()
 {
     player.save("pl.sav");
     allItems.save("it.sav");
+    allNPC.save("npc.sav");
 }
 
 Controller::Controller()
@@ -206,6 +256,7 @@ Controller::Controller()
     sprites.init();
     playerPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
     firePos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
+    chestPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);
     traiderPos.setCoords(7, 4);
     lvl.lvl0();
     currentlvl = 0;

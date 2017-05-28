@@ -26,6 +26,7 @@ void AllItems::save(const char *file)
                  accessory.item.durability<<" "<<
                  accessory.item.id<<" "<<
                  accessory.item.maxDurability<<" "<<
+                 accessory.item.cost<<" "<<
                  accessory.item.name;
             out<<" ##\n";
         }
@@ -48,6 +49,7 @@ void AllItems::save(const char *file)
                  armor.item.durability<<" "<<
                  armor.item.id<<" "<<
                  armor.item.maxDurability<<" "<<
+                 armor.item.cost<<" "<<
                  armor.item.name;
             out<<" ##\n";
         }
@@ -70,6 +72,7 @@ void AllItems::save(const char *file)
                  weapon.item.durability<<" "<<
                  weapon.item.id<<" "<<
                  weapon.item.maxDurability<<" "<<
+                 weapon.item.cost<<" "<<
                  weapon.item.name;
             out<<" ##\n";
         }
@@ -116,7 +119,8 @@ int AllItems::load(const char *file)
              acInfo.item.damageT.pricking>>
              acInfo.item.durability>>
              acInfo.item.id>>
-             acInfo.item.maxDurability;
+             acInfo.item.maxDurability>>
+             acInfo.item.cost;
         in>>buf;
         strcpy(acInfo.item.name, buf);
         while (true)
@@ -146,7 +150,8 @@ int AllItems::load(const char *file)
              arInfo.item.damageT.pricking>>
              arInfo.item.durability>>
              arInfo.item.id>>
-             arInfo.item.maxDurability;
+             arInfo.item.maxDurability>>
+             arInfo.item.cost;
         in>>buf;
         strcpy(arInfo.item.name, buf);
         while (true)
@@ -176,7 +181,8 @@ int AllItems::load(const char *file)
              wInfo.item.damageT.pricking>>
              wInfo.item.durability>>
              wInfo.item.id>>
-             wInfo.item.maxDurability;
+             wInfo.item.maxDurability>>
+             wInfo.item.cost;
         in>>buf;
         strcpy(wInfo.item.name, buf);
         while (true)

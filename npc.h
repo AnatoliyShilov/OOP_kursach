@@ -1,17 +1,24 @@
 #ifndef NPC_H
 #define NPC_H
 #include <actor.h>
-#include "bag.h"
 
-class NPC: public Actor//добавить имя
+struct NPCInfo
 {
-    int id;//сохранить
-    char name[50];//сохранить
-    bool isEnemy;//сохранить
-    Bag bag;//сохранить
+    int id;
+    char name[50];
+    int memoryFragments;
+    Equipment equip;
+    Chars charsMax;
+};
+
+class NPC: public Actor
+{
+    int id;
+    char name[50];
 public:
-    Bag getBag();
     NPC();
+    NPCInfo getInfo();
+    void setInfo(NPCInfo info);
 };
 
 #endif // NPC_H

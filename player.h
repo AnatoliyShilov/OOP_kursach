@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <actor.h>
-#include <bag.h>
+
 #include <fstream>
 
 struct PlayerInfo
@@ -14,9 +14,9 @@ struct PlayerInfo
     Chars charsCurrent;
 };
 
-class Player: public Actor//докинуть номер уровня
+class Player: public Actor
 {
-    Bag bag;//сумка//сохранить
+
     int curentLvl;//текущий уровень персонажа//сохранить
     int nextLvlCost;//стоимоть следующего уровня//сохранить
     int maxFastTravelId;//на сколько далеко можно переместиться//сохранить
@@ -31,8 +31,7 @@ public:
     void changeLvl(Chars dxChars, int dxLvl);
     void lvl0();
     void rest();
-    void loot(Bag bag);
-    Bag *openBag();//просмотр сумки
+    void loot(Bag *bag);
     void sort();
     void cleanArmor(int index);
     void cleanWeapon(int index);
