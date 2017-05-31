@@ -171,13 +171,14 @@ void Controller::gameTick()
         }
         default:break;
         }
+        player.regenStamina();
         if (currentlvl && lvl.getCurrentRoomID())
             battleMenu.start();
         if (player.isDead())
         {
-            player.resetBattleChars();
             player.addFragments(-player.getFragments());
             player.save("pl.sav");
+            player.rest();
             lvl.lvl0();
             currentlvl = 0;
             playerPos.setCoords(ROOM_SIZE / 2, ROOM_SIZE / 2);

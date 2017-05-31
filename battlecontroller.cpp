@@ -19,7 +19,6 @@ void BattleController::battle(NPC *enemy, int enemyCount)
         avoid += enemy[i].getDex();
     }
     bool turn;
-    player->regenStamina();
     while (true)
     {
         if (player->isDead())
