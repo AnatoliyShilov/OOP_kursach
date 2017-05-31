@@ -186,6 +186,9 @@ int TraideController::start()
         "Купить",
         "Выйти"
     };
+    system("cls");
+    std::cout<<"\n\t\t"<<traider->getInfo().name<<" приветствует тебя, путник.\n\t";
+    system("pause");
     while (true)
     {
         result = Menu::displayVertical("Торговля", optNames, 3, NULL, NULL);

@@ -4,14 +4,15 @@
 #include "npc.h"
 #include "allnpc.h"
 
-class BattleController : public AbstractController
+class BattleController : public AbstractController//контроллер битвы
 {
-    AllNPC *npcs;
-    void battle(NPC *enemy, int enemyCount);
+    AllNPC *npcs;//все НПС
+    void battle(NPC *enemy, int enemyCount);//сражение
+    //игрок сражается со случайными enemy в количестве enemyCount (от 1 до 5)
 public:
     BattleController();
-    virtual int start();
-    void setNPCs(AllNPC &npcs);
+    virtual int start();//запуск контроллера
+    void setNPCs(AllNPC &npcs);//установить НПС
 };
 
 #endif // BATTLECONTROLLER_H

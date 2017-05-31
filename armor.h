@@ -1,15 +1,15 @@
 #ifndef ARMOR_H
 #define ARMOR_H
 #include <item.h>
-enum ArmorType
+enum ArmorType//типы брони
 {
-    helmet,
-    armor,
-    gloves,
-    leggings
+    helmet,//шлем
+    armor,//доспех//кираса
+    gloves,//перчатки
+    leggings//поножи
 };
 
-struct ArmorInfo
+struct ArmorInfo//обертка данных брони
 {
     ArmorType type;
     int weight;
@@ -18,13 +18,13 @@ struct ArmorInfo
 
 class Armor: public Item
 {
-    ArmorType type;//сохранить
-    int weight;//сохранить
+    ArmorType type;//тип брони
+    int weight;//вес
 public:
-    ArmorInfo getInfo();
-    void setInfo(ArmorInfo info);
-    ArmorType getType();
-    int getWeight();
+    ArmorInfo getInfo();//запаковать данные в обертку и вернуть
+    void setInfo(ArmorInfo info);//извлечь данные из обертки и установить
+    ArmorType getType();//вернуть тип брони
+    int getWeight();//вернуть вес брони
     Armor();
 };
 

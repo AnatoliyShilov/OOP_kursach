@@ -1,10 +1,11 @@
 #ifndef ACCESSORY_H
 #define ACCESSORY_H
 #include <item.h>
-enum AccessoryType{
-    defence,
-    attack,
-    charsAdd
+enum AccessoryType//типы аксессуаров
+{
+    defence,//защитный//уменьшает получаемый урон
+    attack,//атакующий//увеличивает наносимый урон
+    charsAdd//специальный//увеличивает/уменьшает характеристики персонажа
 };
 
 struct Chars
@@ -14,13 +15,13 @@ struct Chars
     int health;//здаровье
     int dexterity;//ловкость
     //не улучшаемые
-    int luck;//параметр удачи//вероятность получения предмета с врага// интервал [0; luck]
+    int luck;//параметр удачи//вероятность получения предмета с врага, успешного выполнения спецприема
     int stamina;//выносливость
     int carry;//грузоподъемность//переносимый вес
     int regenS;//восстановление выносливости
 };
 
-struct AccessoryInfo
+struct AccessoryInfo//обертка данных об аксессуаре
 {
     Chars additionChars;
     AccessoryType accessoryType;
@@ -29,13 +30,13 @@ struct AccessoryInfo
 
 class Accessory: public Item
 {   
-    Chars additionChars;//сохранить
-    AccessoryType accessoryType;//сохранить
+    Chars additionChars;//изменение характеристик персонажа
+    AccessoryType accessoryType;//тип аксессуара
 public:
-    AccessoryInfo getInfo();
-    void setInfo(AccessoryInfo info);
-    Chars getCharsBonus();
-    AccessoryType getType();
+    AccessoryInfo getInfo();//упаковать все данные в обертку и верную ее
+    void setInfo(AccessoryInfo info);//распаковать обертку и установить параметры
+    Chars getCharsBonus();//вернуть бонусы к характеристикам
+    AccessoryType getType();//вернуть тип
     Accessory();
 };
 

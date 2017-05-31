@@ -5,14 +5,14 @@
 #include "windows.h"
 #include "additionfunction.h"
 
-class AbstractController
+class AbstractController//абстрактный класс контроллер
 {
 protected:
-    Player *player;
+    Player *player;//указатель на игрока для обработки и применения локальных изменений
 public:
     AbstractController();
-    virtual int start() = 0;
-    void setPayer(Player &player);
+    virtual int start() = 0;//абстрактный метод запускающий контроллер
+    void setPayer(Player &player);//подключить игрока к контроллеру
 };
 
 #endif // ABSTRACTCONTROLLER_H

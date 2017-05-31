@@ -5,19 +5,19 @@ int Level::getCurrentRoomID()
     return currentRoom.getX() * LVL_SIZE + currentRoom.getY();
 }
 
-bool Level::isFree(int x, int y)
+bool Level::isFree(Coordinates coord)
 {
-    return rooms[currentRoom.getX()][currentRoom.getY()].isFree(x, y);
+    return rooms[currentRoom.getX()][currentRoom.getY()].isFree(coord.getX(), coord.getY());
 }
 
-typeCell Level::getTypeCell(int x, int y)
+typeCell Level::getTypeCell(Coordinates coord)
 {
-    return rooms[currentRoom.getX()][currentRoom.getY()].getTypeCell(x, y);
+    return rooms[currentRoom.getX()][currentRoom.getY()].getTypeCell(coord.getX(), coord.getY());
 }
 
-Room Level::setCurrentRoom(int row, int column)
+Room Level::setCurrentRoom(Coordinates coord)
 {
-    currentRoom.setCoords(row, column);
+    currentRoom.setCoords(coord.getX(), coord.getY());
     return getCurrentRoom();
 }
 
@@ -26,9 +26,9 @@ Coordinates Level::getCurrentRoomCoord()
     return currentRoom;
 }
 
-Room Level::changeCurrentRoom(int dRow, int dColumn)
+Room Level::changeCurrentRoom(Coordinates dCoord)
 {
-    currentRoom.changeCoords(dRow, dColumn);
+    currentRoom.changeCoords(dCoord.getX(), dCoord.getY());
     return getCurrentRoom();
 }
 
@@ -152,14 +152,14 @@ Room Level::getCurrentRoom()
     return this->rooms[currentRoom.getX()][currentRoom.getY()];
 }
 
-Room Level::getRoom(int row, int column)
+Room Level::getRoom(Coordinates coord)
 {
-    return this->rooms[row][column];
+    return this->rooms[coord.getX()][coord.getY()];
 }
 
 Level::Level()
 {
-    Level::interval = 0;
+
 }
 
 void Level::generateLvl(Coordinates currentRoom)
@@ -168,11 +168,10 @@ void Level::generateLvl(Coordinates currentRoom)
     this->currentRoom = currentRoom;
 }
 
-void Level::setLvl(Room rooms[LVL_SIZE][LVL_SIZE], int interval, Coordinates currentRoom)
+void Level::setLvl(Room rooms[LVL_SIZE][LVL_SIZE], Coordinates currentRoom)
 {
     for (int i = 0; i < LVL_SIZE; i++)
         for (int j = 0; j < LVL_SIZE; j++)
             this->rooms[i][j] = rooms[i][j];
-    this->interval = interval;
     this->currentRoom = currentRoom;
 }

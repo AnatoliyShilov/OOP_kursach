@@ -1,7 +1,7 @@
 #ifndef DAMAGETYPES_H
 #define DAMAGETYPES_H
 
-struct DamageTypesInfo
+struct DamageTypesInfo//обертка данных о типах урона
 {
     int general;//основной урон
     float pricking;//Колющий
@@ -11,7 +11,7 @@ struct DamageTypesInfo
     float poisoning;//Отравление
 };
 
-class DamageTypes
+class DamageTypes//типы урона
 {
     int general;//основной урон
     float pricking;//Колющий
@@ -19,16 +19,16 @@ class DamageTypes
     float crushing;//Дробящий
     float bleeding;//Кровотечение
     float poisoning;//Отравление
-    void setLessZero();
+    void setLessZero();//проверить и установить 0 для всех типов урона < 0
 public:
-    DamageTypesInfo getInfo();
-    void setInfo(DamageTypesInfo info);
+    DamageTypesInfo getInfo();//упаковать данные в обертку и вернуть ее
+    void setInfo(DamageTypesInfo info);//распаковать данные и установить их
     DamageTypes();
     DamageTypes(int general, float pricking, float cutting, float crushing, float bleeding, float poisoning);
-    void add(DamageTypes damage);
-    void substract(DamageTypes damage);
-    int getHealthDamage();
-    void addToGeneral(int value);
+    void add(DamageTypes damage);//сложить текущие значения типов урона с damage
+    void substract(DamageTypes damage);//вычесть из текущего значения типов урона damage
+    int getHealthDamage();//рассчитать урон здоровью и вернуть его
+    void addToGeneral(int value);//добавить к основному урону value
 };
 
 #endif // DAMAGETYPES_H

@@ -4,7 +4,7 @@
 
 #include <fstream>
 
-struct PlayerInfo
+struct PlayerInfo//обертка информации об игроке
 {
     int curentLvl;
     int nextLvlCost;
@@ -14,31 +14,31 @@ struct PlayerInfo
     Chars charsCurrent;
 };
 
-class Player: public Actor
+class Player: public Actor//игрок
 {
 
-    int curentLvl;//текущий уровень персонажа//сохранить
-    int nextLvlCost;//стоимоть следующего уровня//сохранить
-    int maxFastTravelId;//на сколько далеко можно переместиться//сохранить
+    int curentLvl;//текущий уровень персонажа
+    int nextLvlCost;//стоимоть следующего уровня
+    int maxFastTravelId;//на сколько далеко можно переместиться
 public:
     Player();
-    PlayerInfo getInfo();
-    void save(const char *file);
-    void load(const char *file, AllItems *allItems);
-    void setFastTravel(int lvlId);
-    int getFastTravel();
-    int getNextLvlCost();
-    void changeLvl(Chars dxChars, int dxLvl);
-    void lvl0();
-    void rest();
-    void loot(Bag *bag);
-    void sort();
-    void cleanArmor(int index);
-    void cleanWeapon(int index);
-    void cleanAccessory(int index);
-    void changeArmor(Armor armorNew, int index);//сменить броню
-    void changeWeapon(Weapon weaponNew, int index);//выбрать оружие
-    void changeAccessory(Accessory acessoryNew, int index);//выбрать аксессуар
+    PlayerInfo getInfo();//упаковать данные в обертку и вернуть ее
+    void save(const char *file);//сохранить данные игрока в файл
+    void load(const char *file, AllItems *allItems);// загрузить данные игрока из файла
+    void setFastTravel(int lvlId);//установить максимальный номер уровня для быстрого перемещения
+    int getFastTravel();//вернуть максимальный номер уровня для быстрого перемещения
+    int getNextLvlCost();//вернуть стоимость усовершенствования на следующий уровень
+    void changeLvl(Chars dxChars, int dxLvl);//изменить уровень и характеристики игрока
+    void lvl0();//сбросить игрока до 0 уровеня
+    void rest();//персонаж отдыхает//восстанавливается здоровье и количество аптечек, чинится снаряжение
+    void loot(Bag *bag);//обыскать внешнее хранилище предметов и поместить содержимое в сумку игрока
+    void sort();//сортировать содержимое сумки
+    void cleanArmor(int index);//убрать броню из указанного слота
+    void cleanWeapon(int index);//убрать оружие из указанного слота
+    void cleanAccessory(int index);//убрать аксессуар из указанного слота
+    void changeArmor(Armor armorNew, int index);//выбрать и сменить указанную броню
+    void changeWeapon(Weapon weaponNew, int index);//выбрать и сменить указанное оружие
+    void changeAccessory(Accessory acessoryNew, int index);//выбрать и сменить указанный аксессуар
 };
 
 #endif // PLAYER_H

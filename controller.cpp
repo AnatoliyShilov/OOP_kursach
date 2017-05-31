@@ -41,13 +41,13 @@ void Controller::gameTick()
             if (key == EXIT_CODE)
                 return;
         }
-        if (key == UP && lvl.isFree(playerPos.getX(), playerPos.getY() - 1))
+        if (key == UP && lvl.isFree(Coordinates(playerPos.getX(), playerPos.getY() - 1)))
             playerPos.changeCoords(0, -1);
-        if (key == DOWN && lvl.isFree(playerPos.getX(), playerPos.getY() + 1))
+        if (key == DOWN && lvl.isFree(Coordinates(playerPos.getX(), playerPos.getY() + 1)))
             playerPos.changeCoords(0, 1);
-        if (key == LEFT && lvl.isFree(playerPos.getX() - 1, playerPos.getY()))
+        if (key == LEFT && lvl.isFree(Coordinates(playerPos.getX() - 1, playerPos.getY())))
             playerPos.changeCoords(-1, 0);
-        if (key == RIGHT && lvl.isFree(playerPos.getX() + 1, playerPos.getY()))
+        if (key == RIGHT && lvl.isFree(Coordinates(playerPos.getX() + 1, playerPos.getY())))
             playerPos.changeCoords(1, 0);
         if (key == E_KEY)
         {
@@ -95,7 +95,7 @@ void Controller::gameTick()
                     else
                         inventoryMenu.start();
         }
-        switch (lvl.getTypeCell(playerPos.getX(), playerPos.getY()))
+        switch (lvl.getTypeCell(Coordinates(playerPos.getX(), playerPos.getY())))
         {
         case WAYIN:
         {
@@ -145,25 +145,25 @@ void Controller::gameTick()
         {
             if (playerPos.getY() == 0)
             {
-                lvl.changeCurrentRoom(-1, 0);
+                lvl.changeCurrentRoom(Coordinates(-1, 0));
                 playerPos.changeCoords(0, ROOM_SIZE - 1);
                 break;
             }
             if (playerPos.getY() == ROOM_SIZE - 1)
             {
-                lvl.changeCurrentRoom(1, 0);
+                lvl.changeCurrentRoom(Coordinates(1, 0));
                 playerPos.changeCoords(0, -ROOM_SIZE + 1);
                 break;
             }
             if (playerPos.getX() == 0)
             {
-                lvl.changeCurrentRoom(0, -1);
+                lvl.changeCurrentRoom(Coordinates(0, -1));
                 playerPos.changeCoords(ROOM_SIZE - 1, 0);
                 break;
             }
             if (playerPos.getX() == ROOM_SIZE - 1)
             {
-                lvl.changeCurrentRoom(0, 1);
+                lvl.changeCurrentRoom(Coordinates(0, 1));
                 playerPos.changeCoords(-ROOM_SIZE + 1, 0);
                 break;
             }

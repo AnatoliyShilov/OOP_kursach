@@ -2,7 +2,7 @@
 #define NPC_H
 #include <actor.h>
 
-struct NPCInfo
+struct NPCInfo//обертка информации о НПС
 {
     int id;
     char name[50];
@@ -11,14 +11,14 @@ struct NPCInfo
     Chars charsMax;
 };
 
-class NPC: public Actor
+class NPC: public Actor//НПС
 {
-    int id;
-    char name[50];
+    int id;//идентификатор
+    char name[50];//имя
 public:
     NPC();
-    NPCInfo getInfo();
-    void setInfo(NPCInfo info);
+    NPCInfo getInfo();//упаковать данные в обертку и вернуть ее
+    void setInfo(NPCInfo info);// извлечь данные из обертки и установить их
 };
 
 #endif // NPC_H

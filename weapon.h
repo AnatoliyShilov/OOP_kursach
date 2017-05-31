@@ -1,29 +1,29 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 #include <item.h>
-enum WeaponType
+enum WeaponType//тип оружия
 {
-    Attack,
-    Shield
+    Attack,//атакующее
+    Shield//щит
 };
 
-struct WeaponInfo
+struct WeaponInfo//обертка информации об оружии
 {
     WeaponType weaponType;
     int weight;
     ItemInfo item;
 };
 
-class Weapon: public Item
+class Weapon: public Item//оружие
 {
-    WeaponType weaponType;//сохранить
-    int weight;//сохранить
+    WeaponType weaponType;//тип оружия
+    int weight;//вес
 public:
-    WeaponInfo getInfo();
-    void setInfo(WeaponInfo info);
+    WeaponInfo getInfo();//упаковать информацию в обертку и вернуть ее
+    void setInfo(WeaponInfo info);//извлечь информацию из обертки и установить
     Weapon();
     WeaponType getType();
-    int getWeight();
+    int getWeight();//вернуть вес
 };
 
 #endif // WEAPON_H

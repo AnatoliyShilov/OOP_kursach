@@ -2,18 +2,18 @@
 #define COORDINATES_H
 
 
-class Coordinates
+class Coordinates//координаты
 {
-    int x;
-    int y;
+    int x;//x
+    int y;//y
 public:
     Coordinates();
     Coordinates(int x, int y);
-    void changeCoords(int dx, int dy);
-    void setCoords(int x, int y);
-    int getX();
-    int getY();
-    bool equals(Coordinates arg);
+    void changeCoords(int dx, int dy);//изменить координаты на dx и dy
+    void setCoords(int x, int y);//установить координаты
+    int getX();//получить абсциссу
+    int getY();//получить ординату
+    bool equals(Coordinates arg);//проверка на равенство 2х координат
 };
 
 #endif // COORDINATES_H

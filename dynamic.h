@@ -5,31 +5,31 @@
 #endif
 
 template<class Data>
-struct Link
+struct Link//узел списка
 {
-    Data data;
-    Link<Data>* Next;
-    Link<Data>* Prev;
+    Data data;//данные
+    Link<Data>* Next;//след. узел
+    Link<Data>* Prev;//пред. узел
 };
 
 template <class Data>
-class List
+class List//список
 {
-    Link<Data>* begin;
-    Link<Data>* end;
+    Link<Data>* begin;//начало
+    Link<Data>* end;//конец
 public:
     List();
     ~List();
-    int size();
-    bool isEmpty();
-    void add(Data data);
-    Data get(int number);
-    void removeAll();
-    static void swap(Link<Data> *to, Link<Data> *from);
-    void remove(int number);
-    void remove(Link<Data> *link);
-    Link<Data>* getBegin();
-    Link<Data>* getEnd();
+    int size();//вернуть количество элементов в списке
+    bool isEmpty();//истинна, если список пуст
+    void add(Data data);//добавить новый элемент в список
+    Data get(int number);//вернуть данные узла под указанным номером
+    void removeAll();//удалить все элементы
+    static void swap(Link<Data> *to, Link<Data> *from);//поменять местами 2 узла
+    void remove(int number);//удалить узел под указанным номером
+    void remove(Link<Data> *link);//удалить указанный узел
+    Link<Data>* getBegin();//вернуть начало
+    Link<Data>* getEnd();//вернуть конец
 };
 
 template <class Data>

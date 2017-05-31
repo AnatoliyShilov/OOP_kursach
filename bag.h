@@ -2,8 +2,8 @@
 #define BAG_H
 #include <allitems.h>
 
-class Bag: public AllItems
-{
+class Bag: public AllItems//сумка
+{//содержит не экипированные предметы персонажа
 public:
     Bag();
 };

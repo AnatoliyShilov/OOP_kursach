@@ -39,18 +39,18 @@ typedef void* pVoid;
 // * right (224/0 + 77) (54) (162) (97)
 // * left (224/0 + 75) (52) (228) (100)
 // * backspace 8
-class Sprites
+class Sprites//собержит графические представления всех отображаемых объектов
 {
 public:
-    const char *wall[3];
-    const char *player[3];
-    const char *wayin[3];
-    const char *wayout[3];
-    const char *door[3];
-    const char *traider[3];
-    const char *fire[3];
-    const char *chest[3];
-    virtual void init()
+    const char *wall[3];//стена
+    const char *player[3];//игрок
+    const char *wayin[3];//следущий уровень подземелья
+    const char *wayout[3];//предыдущий уровень подземелья
+    const char *door[3];//дверь
+    const char *traider[3];//торговец
+    const char *fire[3];//костер
+    const char *chest[3];//сундук
+    virtual void init()//ничальная инициализация спрайтов
     {
         chest[0] = "Я+R";
         chest[1] = "|||";
@@ -78,15 +78,15 @@ public:
         traider[2] = "|\\|";
     }
 };
-class PrintFuncs
+class PrintFuncs//функции печати текста
 {
 public:
-    inline void static printSymbol(const char that, int count)
+    inline void static printSymbol(const char that, int count)//печатает that count раз
     {
         for (int i = 0; i < count; i++, std::cout<<that);
     }
 
-    inline int static strPrintLimit(const char* that, int howMany)
+    inline int static strPrintLimit(const char* that, int howMany)//печатает howMany символов из thаt
     {
         int i = 0;
         for (; i < howMany; i++)
@@ -101,7 +101,7 @@ public:
     }
 
     void static printRoom(int currentlvl, Cell** cells, int roomSize, Coordinates Poss[4], Sprites s, int roomID, int chestRoomID)
-    {
+    {//выводит на экран комнату
         system("cls");
         char **info = new char* [roomSize];
         char buf[5];
@@ -170,10 +170,10 @@ public:
     }
 };
 
-class Menu
+class Menu//содержит различные меню
 {
 public:
-    void static dead()
+    void static dead()//экран "YOU DEAD"
     {
         system("cls");
         std::cout<<"              ==    ==          OOOO         OO      OO                         "
@@ -197,7 +197,7 @@ public:
                 return;
     }
 
-    void static logo()
+    void static logo()//логотип разработчиков
     {
         system("cls");
         std::cout<<"\n\n"
@@ -216,7 +216,7 @@ public:
                ;
     }
 
-    static bool askWindow(const char *title, const char *info)
+    static bool askWindow(const char *title, const char *info)//диалоговое окно типа ДА/НЕТ
     {
         char indicator[2];
         indicator[0] = ' ';
@@ -248,7 +248,7 @@ public:
         }
     }
 
-    static void info(const char *title, const char *info)
+    static void info(const char *title, const char *info)//информационное диалоговое окно
     {
         system("cls");
         std::cout
@@ -262,7 +262,7 @@ public:
     }
 
     inline int static displayVertical(const char* title, const char *nameOptions[], int count, void (*addInfo)(pVoid), pVoid arg)
-    {
+    {//печатет вертикальное меню
         int key, current = 0;
         char *indicator = new char [count];
         for (key = 0; key < count; key++)
@@ -320,7 +320,7 @@ public:
     }
 
     inline int static optionChangeVertical(int key, int current, int count)
-    {
+    {//рассчитывает переходы по вертикальному меню
         if ((key = Menu::keyDecoder(key)) == ERROR_CODE)
             return current;
         if (key == EXIT_CODE)
@@ -342,7 +342,7 @@ public:
     }
 
     inline int static keyDecoder(int key)
-    {
+    {//дешифратор клавиш
         if (key == ESC_KEY || key == BACKSPACE_KEY)
             return EXIT_CODE;
         if (key == ENTER_KEY)
@@ -363,21 +363,21 @@ public:
     }
 };
 
-class Dice
+class Dice//игральная кость
 {
 public:
     void static init()
-    {
+    {//инициализатор
         srand(time(0));
     }
 
     int static random(int upperBorder = 10000)
-    {
+    {//возвращает случайное число в промежутке [0; upperBorder]
         return rand()%(upperBorder + 1);
     }
 
     int static roll(int upperBorder = 10000)
-    {
+    {//инициализатор + возвращает случайное число в промежутке [0; upperBorder]
         srand(time(0));
         return rand()%(upperBorder + 1);
     }

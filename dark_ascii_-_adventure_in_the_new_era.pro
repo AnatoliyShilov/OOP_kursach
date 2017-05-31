@@ -6,7 +6,6 @@ CONFIG -= qt
 SOURCES += main.cpp \
     item.cpp \
     damagetypes.cpp \
-    throwing.cpp \
     armor.cpp \
     weapon.cpp \
     accessory.cpp \
@@ -31,7 +30,6 @@ SOURCES += main.cpp \
 HEADERS += \
     item.h \
     damagetypes.h \
-    throwing.h \
     armor.h \
     weapon.h \
     accessory.h \
