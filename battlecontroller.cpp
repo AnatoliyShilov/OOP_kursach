@@ -95,7 +95,8 @@ void BattleController::battle(NPC *enemy, int enemyCount)
             if ((!player->getEquipment().twoHanded[1] && !player->getEquipment().twoHanded[0])
                     || player->getEquipment().twoHanded[1])
             {
-                std::cout<<"\t"<<player->getEquipment().weapon[1].getInfo().item.name<<"\n";
+                std::cout<<"\t"<<player->getEquipment().weapon[1].getInfo().item.name<<
+                           "   Прочность: "<<player->getEquipment().weapon[0].getInfo().item.durability<<"\n";
             }
             std::cout<<"Режим битвы:   ";
             switch (player->getBattleMod())
